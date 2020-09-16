@@ -162,6 +162,6 @@ def MostrarCorregido(dic):
     chrs = chrs[:-2]
     print(chrs)
 
-# main()
+main()
 
 
