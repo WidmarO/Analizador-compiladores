@@ -1,0 +1,167 @@
+def main():
+  # leyendo los datos
+  reglas = LeerDatos()
+  # Separar Reglas para mostrar
+  to_show_rules = SepararReglas(reglas)
+  # # Organizar estructura para analizar
+  diccionario1 = OrganizarToAnalisis(reglas)
+  print('\n======== listo para analisis ==========\n')  
+  MostrarCorregido(diccionario1)
+  # for _ in diccionario1:
+  #   print(_,diccionario1[_])
+  print('\n======== corregir recursividad official ==========\n')
+  diccionario2 = CorregirRec(diccionario1)
+  MostrarCorregido(diccionario2)
+  # for i in diccionario2:
+  #   print(i,diccionario2[i])
+  print('\n======== corregir ambiguedad official ==========\n')
+  diccionario3 = CorregirAmb(diccionario1)
+  MostrarCorregido(diccionario3)
+  # for i in diccionario3:
+    # print(i,diccionario3[i])
+
+def LeerDatos():
+  entradas = []
+  entrada = "value"
+  while(entrada != ""):
+    entrada = input()
+    entradas.append(entrada)
+  del entradas[-1]
+  return entradas
+
+def SepararReglas(reglas):
+  newReglas = []
+  for regla in reglas:
+    aux = regla.split(' -> ',1)
+    premisa = aux[0]
+    a = aux[1].split(" | ")   
+    for tok in a:
+      # prim = tok.split(" ",1)[0]     
+      newReglas.append(premisa + " -> " + tok)
+  return newReglas
+
+def OrganizarToAnalisis(reglas):
+  dic = {}
+  for row in reglas:
+    aux = row.split(" -> ",1)
+    premisa = aux[0]
+    dic[premisa] = []
+
+  for row in reglas:
+    aux = row.split(" -> ",1) 
+    premisa = aux[0]
+    derecha = aux[1]
+    arreglo = derecha.split(" | ")
+    for token in arreglo:      
+      aux = token.split(' ',1)
+      dic[premisa].append(aux)
+  return dic
+
+def Reorganizar(dic):
+
+  for e in dic:
+    for i in range(len(dic[e])):
+      if (len(dic[e][i]) == 1):
+        dic[e][i] = dic[e][i][0].split(' ',1)
+  return dic
+
+def AnalizarForRec(dic):
+  errores = []
+  for e in dic:
+    for token in dic[e]:
+      if (token[0] == e):
+        # print("Existe Recursividad")
+        errores.append(e)
+
+  if (len(errores) > 0):
+    return errores
+  else:
+    # print("No hay problemas de Recursividad")
+    return errores
+  
+def AnalizarForAmb(dic):
+  errores = {}
+  aux = {}
+  for e in dic:
+    aux[e] = {}
+    for token in dic[e]:
+      aux[e][token[0]] = 0
+
+  for e in dic:
+    mayor = 0
+    letra = ""
+    for token in dic[e]:
+      aux[e][token[0]] += 1
+      if (aux[e][token[0]] > mayor and aux[e][token[0]] > 1):
+        mayor = aux[e][token[0]]
+        letra = token[0]
+
+    if (letra != ""):
+      errores[e] = letra
+
+  if (len(errores) > 0):
+    # print("Existe Ambiguedad en " + e)
+    return errores
+  else:
+    # print("No hay problemas de Ambiguedad")
+    return errores
+
+def CorregirRec(dic):
+
+  err = AnalizarForRec(dic)
+  corregido = {}
+  for e in dic:
+    if e in err:
+      corregido[e] = []
+      corregido[e + "'"] = []
+      for token in dic[e]:
+        if (len(token) == 1):
+          corregido[e].append([token[0] + " " + e + "'"])
+        else:
+          corregido[e + "'"].append([(token[1]) + " " + e + "'"])
+      corregido[e + "'"].append(["\u03B5"])
+    else:
+      corregido[e] = dic[e]  
+  return corregido
+
+def CorregirUnaAmb(dic):
+  err = AnalizarForAmb(dic)
+  corregido = {}
+  for e in dic:
+    # print("esete es el e: ",e)
+    if e in err:
+      # print("entro en e.values", e)
+      corregido[e] = []
+      corregido[e + "'"] = []
+      corregido[e].append([err[e] + " " + e + "'"])
+      for token in dic[e]:
+        if (token[0] != err[e]):
+          corregido[e].append(token)
+        else:
+          corregido[e + "'"].append([token[1]])      
+    else:
+      corregido[e] = dic[e]  
+  return corregido
+
+def CorregirAmb(dic):
+  err = AnalizarForAmb(dic)
+  dic3 = dic
+  while(len(err) != 0):
+    err = AnalizarForAmb(dic3)
+    dic3 = CorregirUnaAmb(dic3)
+    dic3 = Reorganizar(dic3)
+  
+  return dic3
+
+def MostrarCorregido(dic):
+  for premisa in dic:
+    chrs = premisa + " -> "
+    for regla in dic[premisa]:
+      aux = " ".join(regla)
+      chrs += aux + ' | '
+    chrs = chrs[:-2]
+    print(chrs)
+
+main()
+
+

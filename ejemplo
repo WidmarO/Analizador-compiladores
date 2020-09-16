@@ -1,0 +1,20 @@
+S -> Var := E
+E -> E + E | E + (E) | (E)
+E -> E - T
+E -> Var | Num
+T -> T + E | T - T | T * E
+T -> (T)
+Var -> a | b | c | d | e
+Num -> 0 | 1 | 2 | 3 | 9
+
+====== entrada 
+E   -> E + E | E + (E) | E - T | (E) | Var | Num
+====================== SOLUCION AMBIGUEDAD
+====== caso tomando E
+E   -> E E' | (E) | Var | Num
+E'  -> + E'' | - T
+E'' -> E | (E)
+===== caso tomando E +
+E   -> E + E' | E - T | (E) | Var | Num
+E'  -> E | (E)
+
