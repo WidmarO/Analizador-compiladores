@@ -119,9 +119,9 @@ Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones
 
 _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
 
-- **Widmar Raul** - _Trabajo Inicial_ - [villanuevand](https://github.com/villanuevand)
-- **Melanie Indira** - _Documentación_ - [fulanitodetal](#fulanito-de-tal)
-- **Nadiabeth Diana** - _Documentación_ - [fulanitodetal](#fulanito-de-tal)
+- **Widmar Raul** - _Trabajo Inicial_ - [WidmarO](https://github.com/WidmarO)[Melanie279](https://github.com/Melanie279)
+- **Melanie Indira** - _Trabajo Inicial_ - [Melanie279](https://github.com/Melanie279)
+- **Nadiabeth Diana** - _Trabajo Inicial_ - [Nadiabeth15](https://github.com/Nadiabeth15)
 
 También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto.
 
