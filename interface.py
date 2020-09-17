@@ -1,48 +1,57 @@
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import font
-
-from test import *
-
-def main():
-  #...........creando ventana
-  ventana= Tk()
-  ventana.title("COMPILADORES")
-  ventana.geometry('730x500')
-  ventana.configure(background='light steel blue')
-
-  #...........etiquetas
-  #bg="red"...subrayado
-  #fg=Color letra
-  #font= fuente de letra
-  titulo=Label(ventana,text="ANALIZADOR" ,font=("Karate",16),bg="light steel blue",fg="black").place(x=308,y=5)
+from modulos import *
+import tkinter as tk
 
 
-  #............crear espacio de texto para las reglas
-  ingresarReglas=Label(ventana,text="Ingresar Reglas:" ,font=("Zeppelin 2",14),bg="light steel blue",fg="black").place(x=20,y=25)
-  espacioReglas = scrolledtext.ScrolledText(ventana,width=30,height=10).place(x=10,y=50)
+class Analisador():
+  def __init__(self):
+    self.ventana = Tk()
+    self.ventana.title("COMPILADORES")
+    #self.label1 = Label(self.ventana,text="Entrada(reglas)",font=("Zeppelin 2",14),bg="light steel blue",width=64)
+    self.ventana['bg'] = 'light steel blue'
+    self.ventana.geometry('1000x475')
+    self.texto = ""
+    self.traduc = ""
+    self.finished = True
+    self.copia = ""
+
+    self.display1 = scrolledtext.ScrolledText(self.ventana,width=45,height=20)
+    self.display1.place(x=20,y=70)
+    self.display2 = scrolledtext.ScrolledText(self.ventana,width=45,height=20)
+    self.display2.place(x=600,y=70)
+
+    self.label1 = Label(self.ventana,text="ANALIZADOR",bg="light steel blue",font=("Karate",18),width=20)
+    self.label1.place(x=350,y=5)
+    self.label1 = Label(self.ventana,text="ENTRADA(reglas)",font=("Zeppelin 2",14),width=15)
+    self.label1.place(x=150,y=30)
+    self.label1 = Label(self.ventana,text="SALIDA",font=("Zeppelin 2",14),width=15)
+    self.label1.place(x=720,y=30)
+    
+    #botones
+    
+    self.btnReset = Button(self.ventana, text="Ingresar Texto",font=("Verdana",8),padx=4,pady=1,command=self.copiar)
+    self.btnReset.place(x=20,y=430)
 
 
-  #............botones
-  separar=Button(ventana, text="Separar Reglas",font=("Verdana",8),padx=4,pady=1).place(x=20,y=220)
-  limpiar=Button(ventana, text="Limpiar",font=("Verdana",8),padx=4,pady=1).place(x=200,y=220)
-  VAmbigüedad=Button(ventana, text="Verificar Ambigüedad",font=("Verdana",8),padx=4,pady=1).place(x=300,y=75)
-  CAmbigüedad=Button(ventana, text="Corregir Ambigüedad",font=("Verdana",8),padx=4,pady=1).place(x=300,y=105)
-  VRecursividad=Button(ventana, text="Verificar Recursividad",font=("Verdana",8),padx=4,pady=1).place(x=300,y=135)
-  CRecursividad=Button(ventana, text="Corregir Recursividad",font=("Verdana",8),padx=4,pady=1).place(x=300,y=165)
+    self.limpiar=Button(self.ventana, text="Limpiar",font=("Verdana",8),padx=4,pady=1,command=self.limpiar).place(x=20,y=400)
+    self.VAmbigüedad=Button(self.ventana, text="Verificar Ambigüedad",font=("Verdana",8),padx=4,pady=1).place(x=430,y=150)
+    self.CAmbigüedad=Button(self.ventana, text="Corregir Ambigüedad",font=("Verdana",8),padx=4,pady=1).place(x=430,y=180)
+    self.VRecursividad=Button(self.ventana, text="Verificar Recursividad",font=("Verdana",8),padx=4,pady=1).place(x=430,y=210)
+    self.CRecursividad=Button(self.ventana, text="Corregir Recursividad",font=("Verdana",8),padx=4,pady=1,command= lambda: pruebita("widmaro")).place(x=430,y=240)
+    self.ventana.mainloop()
+
+  def copiar(self):
+    self.saveText = self.display1.get('1.0', tk.END)
+    aux = [self.saveText]
+    print(self.saveText, aux)
+    self.display2.insert(tk.INSERT,self.saveText)
+
+  def limpiar(self):
+    self.display2.delete('1.0',END)
 
 
-  #............crear espacio de reglas sobreescritas
-  NuevasReglas=Label(ventana,text="Reglas Reescritas" ,font=("Zeppelin 2",14),bg="light steel blue",fg="black").place(x=530,y=25)
-  espacioNuevasReglas = scrolledtext.ScrolledText(ventana,width=30,height=10).place(x=460,y=50)
-
-  #...........hallando conjunto primeros y siguiente............
-  conjuntos=Label(ventana,text="Conjunto de Primeros y Siguientes" , font=("Zeppelin 2",15),bg="light steel blue",fg="black").place(x=255,y=250)
-  Primeros=Button(ventana, text="Generar Primeros",padx=4,pady=1).place(x=80,y=280)
-  Siguientes=Button(ventana, text="Generar Siguientes",padx=4,pady=1).place(x=535,y=280)
-  espacioPrimeros = scrolledtext.ScrolledText(ventana,width=30,height=10).place(x=80,y=310)
-  espacioSiguientes = scrolledtext.ScrolledText(ventana,width=30,height=10).place(x=390,y=310)
-
-  ventana.mainloop()
-
-main()
+if __name__=="__main__":
+  # root = tk.Tk()
+  Analisador()

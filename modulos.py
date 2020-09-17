@@ -1,33 +1,33 @@
-def main():
-  # leyendo los datos
-  reglas = LeerDatos()
-  # Separar Reglas para mostrar
-  to_show_rules = SepararReglas(reglas)
-  # # Organizar estructura para analizar
-  diccionario1 = OrganizarToAnalisis(reglas)
-  print('\n======== listo para analisis ==========\n')  
-  MostrarCorregido(diccionario1)
-  # for _ in diccionario1:
-  #   print(_,diccionario1[_])
-  print('\n======== corregir recursividad official ==========\n')
-  diccionario2 = CorregirRec(diccionario1)
-  MostrarCorregido(diccionario2)
-  # for i in diccionario2:
-  #   print(i,diccionario2[i])
-  print('\n======== corregir ambiguedad official ==========\n')
-  diccionario3 = CorregirAmb(diccionario1)
-  MostrarCorregido(diccionario3)
-  # for i in diccionario3:
-    # print(i,diccionario3[i])
+# def main():
+#   # leyendo los datos
+#   reglas = LeerDatos()
+#   # Separar Reglas para mostrar
+#   to_show_rules = SepararReglas(reglas)
+#   # # Organizar estructura para analizar
+#   diccionario1 = OrganizarToAnalisis(reglas)
+#   print('\n======== listo para analisis ==========\n')  
+#   MostrarCorregido(diccionario1)
+#   # for _ in diccionario1:
+#   #   print(_,diccionario1[_])
+#   print('\n======== corregir recursividad official ==========\n')
+#   diccionario2 = CorregirRec(diccionario1)
+#   MostrarCorregido(diccionario2)
+#   # for i in diccionario2:
+#   #   print(i,diccionario2[i])
+#   print('\n======== corregir ambiguedad official ==========\n')
+#   diccionario3 = CorregirAmb(diccionario1)
+#   MostrarCorregido(diccionario3)
+#   # for i in diccionario3:
+#     # print(i,diccionario3[i])
 
-def LeerDatos():
-  entradas = []
-  entrada = "value"
-  while(entrada != ""):
-    entrada = input()
-    entradas.append(entrada)
-  del entradas[-1]
-  return entradas
+# def LeerDatos():
+#   entradas = []
+#   entrada = "value"
+#   while(entrada != ""):
+#     entrada = input()
+#     entradas.append(entrada)
+#   del entradas[-1]
+#   return entradas
 
 def SepararReglas(reglas):
   newReglas = []
@@ -162,6 +162,9 @@ def MostrarCorregido(dic):
     chrs = chrs[:-2]
     print(chrs)
 
-main()
+def pruebita(palabras):
+  print("hola " + palabras + ", soy un modulo del archivo modulos.py")
+
+# main()
 
 
