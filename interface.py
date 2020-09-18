@@ -1,11 +1,11 @@
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import font
-from modulos import *
 import tkinter as tk
 
+from modulos import *
 
-class Analisador():
+class Analizador():
   def __init__(self):
     self.ventana = Tk()
     self.ventana.title("COMPILADORES")
@@ -36,22 +36,54 @@ class Analisador():
 
 
     self.limpiar=Button(self.ventana, text="Limpiar",font=("Verdana",8),padx=4,pady=1,command=self.limpiar).place(x=20,y=400)
+    self.SepararReglas=Button(self.ventana, text="Separar Reglas",font=("Verdana",8),padx=4,pady=1).place(x=430,y=120)
     self.VAmbigüedad=Button(self.ventana, text="Verificar Ambigüedad",font=("Verdana",8),padx=4,pady=1).place(x=430,y=150)
     self.CAmbigüedad=Button(self.ventana, text="Corregir Ambigüedad",font=("Verdana",8),padx=4,pady=1).place(x=430,y=180)
-    self.VRecursividad=Button(self.ventana, text="Verificar Recursividad",font=("Verdana",8),padx=4,pady=1).place(x=430,y=210)
-    self.CRecursividad=Button(self.ventana, text="Corregir Recursividad",font=("Verdana",8),padx=4,pady=1,command= lambda: pruebita("widmaro")).place(x=430,y=240)
+    self.VRecursividad=Button(self.ventana, text="Verificar Recursividad",font=("Verdana",8),padx=4,pady=1,command=self.verify_rec).place(x=430,y=210)
+    self.CRecursividad=Button(self.ventana, text="Corregir Recursividad",font=("Verdana",8),padx=4,pady=1,command=self.leer).place(x=430,y=240)
     self.ventana.mainloop()
+
+
 
   def copiar(self):
     self.saveText = self.display1.get('1.0', tk.END)
-    aux = [self.saveText]
-    print(self.saveText, aux)
+    # aux = [self.saveText]
+    print(self.saveText)
     self.display2.insert(tk.INSERT,self.saveText)
 
   def limpiar(self):
     self.display2.delete('1.0',END)
 
+  def leer(self):
+    self.saveText = self.display1.get('1.0', tk.END)
+    datos = str(self.saveText)
+    reglas = LeerDatos(datos)
+
+    # print(reglas)
+    return reglas
+  # def organizar(self):
+  #   reglas = self.leer()
+  #   dic1 = OrganizarToAnalisis()
+  # def separar(self):
+
+
+  def verify_rec(self):
+    self.saveText = self.display1.get('1.0', tk.END)
+    reglas = self.leer()
+    dic1 = OrganizarToAnalisis(reglas)
+    err = AnalizarForRec(dic1)
+    if (len(err) == 0):
+      print("no hay recursividad")
+      rpta = "no hay recursividad"
+      self.display2.delete('1.0',END)
+      self.display2.insert(tk.INSERT,rpta)
+    else:
+      print("si hay recursividad")
+      rpta = "si hay recursividad"
+      self.display2.delete('1.0',END)
+      self.display2.insert(tk.INSERT,rpta)
+
 
 if __name__=="__main__":
   # root = tk.Tk()
-  Analisador()
+  Analizador()
