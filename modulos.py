@@ -57,7 +57,6 @@ def OrganizarToAnalisis(reglas):
   return dic
 
 def Reorganizar(dic):
-
   for e in dic:
     for i in range(len(dic[e])):
       if (len(dic[e][i]) == 1):
@@ -151,7 +150,6 @@ def CorregirAmb(dic):
     err = AnalizarForAmb(dic3)
     dic3 = CorregirUnaAmb(dic3)
     dic3 = Reorganizar(dic3)
-  
   return dic3
 
 def MostrarCorregido(dic):

@@ -40,7 +40,7 @@ _Para un mayor entendimiento del programa realizamos un diagrama de flujo, el cu
 
 ###### <center>DIAGRAMA DE FLUJO</center>
 
-![diagrama.png](https://raw.githubusercontent.com/WidmarO/Analizador-compiladores/master/diagrama.png)
+![diagrama.png](https://raw.githubusercontent.com/WidmarO/Analizador-compiladores/master/img/diagrama.png)
 
 ### Construido con... 🛠️
 
