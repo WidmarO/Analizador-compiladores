@@ -71,6 +71,7 @@ def AnalizarForRec(dic):
       if (token[0] == e):
         # print("Existe Recursividad")
         errores.append(e)
+  errores = list(set(errores))
 
   if (len(errores) > 0):
     return errores
@@ -100,6 +101,7 @@ def AnalizarForAmb(dic):
 
   if (len(errores) > 0):
     # print("Existe Ambiguedad en " + e)
+    print(errores)
     return errores
   else:
     # print("No hay problemas de Ambiguedad")

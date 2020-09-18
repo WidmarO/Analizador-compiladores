@@ -4,23 +4,60 @@
 
 El propósito de este trabajo es crear un programa que elimine la ambigüedad y recursión de una gramática, asi mismo determine los conjuntos primeros y siguientes.
 
+### Ejemplos...
+
+Dado el siguiente conjunto de reglas determinar si tienen problemas de ambiguedad o recursividad, si es el caso corregirlos.
+
+```py
+# Conjunto de reglas
+S -> Var := E
+E -> E + E | E + (E) | (E)
+E -> E - T
+E -> Var | Num
+Var -> a | b | c | d | e
+Num -> 0 | 1 | 2 | 3 | 9
+# Tiene Recursividad y Ambiguedad
+# Corregimos Recursividad
+S -> Var := E
+E -> (E) E' | Var E' | Num E'
+E' -> + E E' | + (E) E' | - T E' | ε
+Var -> a | b | c | d | e
+Num -> 0 | 1 | 2 | 3 | 9
+# Aun tiene problemas de Ambiguedad
+# corregimos ambiguedad
+S -> Var := E
+E -> (E) E' | Var E' | Num E'
+E' -> + E'' | - T E' | ε
+E'' -> E E' | (E) E'
+Var -> a | b | c | d | e
+Num -> 0 | 1 | 2 | 3 | 9
+# Ahora nuestras reglas no tienen problemas de ambiguedad ni recursividad :)
+```
+
 ### Empezamos... 🚀
 
 _Para un mayor entendimiento del programa realizamos un diagrama de flujo, el cual muestra una secuencia de pasos que componen el proceso del programa que tienen una conexión entre sí._
 
 ###### <center>DIAGRAMA DE FLUJO</center>
 
-$$ E \rightarrow E + E $$
+![diagrama.png](https://raw.githubusercontent.com/WidmarO/Analizador-compiladores/master/diagrama.png)
 
 ### Construido con... 🛠️
 
-- Lenguaje: Python 3.6.9
-- Google Colaboratory
-- Visual Paradigm
+- Lenguaje: [Python 3.6.9](https://www.python.org/)
+- Servicio Cloud: [Google Colaboratory](https://colab.research.google.com/notebooks/intro.ipynb)
+- Servicio Local: [Jupyter-Notebook](https://jupyter.org/)
+- Diagrama de flujo: [Visual Paradigm](https://www.visual-paradigm.com/)
+- Interfaz Grafica: [tkinter](https://docs.python.org/2/library/tkinter.html)
+- Editor: [Visual Studio Code](https://code.visualstudio.com/)
 
 ## Codificacion del programa 📄
 
 La codificacion del programa fue dividido en lo siguiente:
+
+#### Nota:
+
+Al ingresar las reglas, debe separar por espacio los estados y por " | " (una barra vertical) en caso de colocar mas reglas en una sola linea.
 
 ### Codigo que resuelve la recursion ⌨️
 
@@ -67,53 +104,17 @@ def CorregirUnaAmb(dic):
   return corregido
 ```
 
-### Codigo que halla el conjunto primero ⌨️
-
-```
-codigo....
-```
-
-### Codigo que halla el conjunto siguiente ⌨️
-
-```
-codigo....
-```
-
-## Ejecutando las pruebas ⚙️
-
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
 ## Despliegue 📦
 
-_Agrega notas adicionales sobre como hacer deploy_
-
-## Construido con 🛠️
-
-_Menciona las herramientas que utilizaste para crear tu proyecto_
-
-- [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
-- [Maven](https://maven.apache.org/) - Manejador de dependencias
-- [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
-
-## Contribuyendo 🖇️
-
-Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
+_No requiere nada mas que python 3.^ para poder correr el programa,solo ejecute el archivo interface.py con python, la libreria tkinter viene integrada en python, los archivos de extension .ipynb pueden abrirse con Google Colab_.
 
 ## Wiki 📖
 
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
+No tenemos un wiki :( ... pero puedes ver mas sobre el proyecto en el archivo .ipynb [Wiki](https://github.com/tu/proyecto/wiki)
 
 ## Versionado 📌
 
-Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
+Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/WidmarO/Analizador-compiladores/tags).
 
 ## Autores ✒️
 
@@ -123,20 +124,12 @@ _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios
 - **Melanie Indira** - _Trabajo Inicial_ - [Melanie279](https://github.com/Melanie279)
 - **Nadiabeth Diana** - _Trabajo Inicial_ - [Nadiabeth15](https://github.com/Nadiabeth15)
 
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto.
-
-## Licencia 📄
-
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
-
 ## Expresiones de Gratitud 🎁
 
-- Comenta a otros sobre este proyecto 📢
-- Invita una cerveza 🍺 o un café ☕ a alguien del equipo.
-- Da las gracias públicamente 🤓.
-- etc.
+- Comenta a otros sobre este proyecto 📢.
+- Agradecemos a todas las personas involucradas (nosotros) 🤓.
+- Esperamos les sea util, gracias por descargar.
 
 ---
 
-⌨️ con ❤️ por [Villanuevand](https://github.com/Villanuevand) 😊
-`
+⌨️ con ❤️ por [WidmarO](https://github.com/WidmarO) 😊
