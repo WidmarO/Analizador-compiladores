@@ -119,7 +119,7 @@ Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones
 
 _Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
 
-- **Widmar Raul** - _Trabajo Inicial_ - [WidmarO](https://github.com/WidmarO)[Melanie279](https://github.com/Melanie279)
+- **Widmar Raul** - _Trabajo Inicial_ - [WidmarO](https://github.com/WidmarO)
 - **Melanie Indira** - _Trabajo Inicial_ - [Melanie279](https://github.com/Melanie279)
 - **Nadiabeth Diana** - _Trabajo Inicial_ - [Nadiabeth15](https://github.com/Nadiabeth15)
 
