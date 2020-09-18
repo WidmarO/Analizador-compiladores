@@ -110,7 +110,7 @@ _No requiere nada mas que python 3.^ para poder correr el programa,solo ejecute 
 
 ## Wiki 📖
 
-No tenemos un wiki :( ... pero puedes ver mas sobre el proyecto en el archivo .ipynb, puedes acceder haciendo click aqui [Wiki](https://colab.research.google.com/drive/1n1UBUUUta2xj2JdlEJcHtiOpa_qsZsAp?usp=sharing).
+No tenemos un wiki :( ... pero puedes ver mas sobre el proyecto en el archivo .ipynb, puedes acceder haciendo click [aqui Wiki](https://colab.research.google.com/drive/1n1UBUUUta2xj2JdlEJcHtiOpa_qsZsAp?usp=sharing).
 
 ## Versionado 📌
 
