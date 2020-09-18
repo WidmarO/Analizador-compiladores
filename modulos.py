@@ -24,19 +24,20 @@ def LeerDatos(entrada):
   reglas = entrada.split("\n")
   reglas = [item for item in reglas if item]
 
-  print(reglas)
+  print("modulo LeerDatos en modulos.py\n",reglas)
   return reglas
 
 def SepararReglas(reglas):
-  newReglas = []
+  rpta = ""
+  # newReglas = []
   for regla in reglas:
     aux = regla.split(' -> ',1)
     premisa = aux[0]
     a = aux[1].split(" | ")   
-    for tok in a:
-      # prim = tok.split(" ",1)[0]     
-      newReglas.append(premisa + " -> " + tok)
-  return newReglas
+    for tok in a:   
+      # newReglas.append(premisa + " -> " + tok)
+      rpta += premisa + " -> " + tok + "\n"
+  return rpta
 
 def OrganizarToAnalisis(reglas):
   dic = {}
@@ -152,16 +153,16 @@ def CorregirAmb(dic):
   return dic3
 
 def MostrarCorregido(dic):
+  rpta = ""
   for premisa in dic:
     chrs = premisa + " -> "
     for regla in dic[premisa]:
       aux = " ".join(regla)
       chrs += aux + ' | '
-    chrs = chrs[:-2]
-    print(chrs)
+    chrs = chrs[:-2] + "\n"
+    rpta += chrs
+  return rpta
 
-def pruebita(palabras):
-  print("hola " + palabras + ", soy un modulo del archivo modulos.py")
 
 # main()
 
