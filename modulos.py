@@ -24,7 +24,7 @@ def LeerDatos(entrada):
   reglas = entrada.split("\n")
   reglas = [item for item in reglas if item]
 
-  print("modulo LeerDatos en modulos.py\n",reglas)
+  # print("modulo LeerDatos en modulos.py\n",reglas)
   return reglas
 
 def SepararReglas(reglas):
@@ -115,13 +115,14 @@ def CorregirRec(dic):
       corregido[e] = []
       corregido[e + "'"] = []
       for token in dic[e]:
-        if (len(token) == 1):
+        if (e != token[0]):
           corregido[e].append([token[0] + " " + e + "'"])
         else:
           corregido[e + "'"].append([(token[1]) + " " + e + "'"])
       corregido[e + "'"].append(["\u03B5"])
     else:
       corregido[e] = dic[e]  
+  print(corregido)
   return corregido
 
 def CorregirUnaAmb(dic):
@@ -135,10 +136,16 @@ def CorregirUnaAmb(dic):
       corregido[e + "'"] = []
       corregido[e].append([err[e] + " " + e + "'"])
       for token in dic[e]:
+        if (token[0] == err[e] and len(token) == 1):
+          continue
+
         if (token[0] != err[e]):
           corregido[e].append(token)
         else:
-          corregido[e + "'"].append([token[1]])      
+          if (len(token) == 1):
+            corregido[e + "'"].append(token)
+          else:
+            corregido[e + "'"].append([token[1]])      
     else:
       corregido[e] = dic[e]  
   return corregido
@@ -150,6 +157,7 @@ def CorregirAmb(dic):
     err = AnalizarForAmb(dic3)
     dic3 = CorregirUnaAmb(dic3)
     dic3 = Reorganizar(dic3)
+  # print(dic3)
   return dic3
 
 def MostrarCorregido(dic):
