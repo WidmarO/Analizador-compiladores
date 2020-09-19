@@ -1,8 +1,8 @@
-# **<center>ANALIZADOR</center>**
+# **<center>💻 ANALIZADOR 💻</center>**
 
 ---
 
-El propósito de este trabajo es crear un programa que elimine la ambigüedad y recursión de una gramática, asi mismo determine los conjuntos primeros y siguientes.
+El propósito de este trabajo es crear un programa que analice la ambigüedad y recursión de una gramática y solucionar dichos problemas si existieran.
 
 ### Ejemplos...
 
