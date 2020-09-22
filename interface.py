@@ -11,23 +11,32 @@ class Analizador():
     self.ventana.title("COMPILADORES")
     #self.label1 = Label(self.ventana,text="Entrada(reglas)",font=("Zeppelin 2",14),bg="light steel blue",width=64)
     self.ventana['bg'] = 'light steel blue'
-    self.ventana.geometry('1000x475')
+    self.ventana.geometry('960x650')
     self.texto = ""
     self.traduc = ""
     self.finished = True
     self.copia = ""
 
-    self.display1 = scrolledtext.ScrolledText(self.ventana,width=45,height=20,font=("Cascadia Code",10))
+    self.display1 = scrolledtext.ScrolledText(self.ventana,width=45,height=15,font=("Cascadia Code",10))
     self.display1.place(x=20,y=70)
-    self.display2 = scrolledtext.ScrolledText(self.ventana,width=45,height=20,font=("Cascadia Code",10))
+    self.display2 = scrolledtext.ScrolledText(self.ventana,width=45,height=15,font=("Cascadia Code",10))
     self.display2.place(x=600,y=70)
-
+    #----
+    self.display3 = scrolledtext.ScrolledText(self.ventana,width=45,height=12,font=("Cascadia Code",10))
+    self.display3.place(x=100,y=440)
+    self.display4 = scrolledtext.ScrolledText(self.ventana,width=45,height=12,font=("Cascadia Code",10))
+    self.display4.place(x=520,y=440)
+    #---
     self.label1 = Label(self.ventana,text="ANALIZADOR",bg="light steel blue",font=("Cascadia Code",18),width=20)
     self.label1.place(x=350,y=5)
     self.label1 = Label(self.ventana,text="ENTRADA(reglas)",font=("Zeppelin 2",14),width=15)
     self.label1.place(x=120,y=30)
     self.label1 = Label(self.ventana,text="SALIDA",font=("Zeppelin 2",14),width=15)
     self.label1.place(x=700,y=30)
+    #--
+    self.label1 = Label(self.ventana,text="Conjuntos Primeros y Siguientes",font=("Zeppelin 2",14),width=25)
+    self.label1.place(x=350,y=365)
+    #--
     
     #botones
     
@@ -35,15 +44,18 @@ class Analizador():
     # self.btnReset.place(x=20,y=430)
 
 
-    self.limpiar1=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar1).place(x=20,y=430)
-    self.limpiar2=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar2).place(x=600,y=430)
+    self.limpiar1=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar1).place(x=20,y=320)
+    self.limpiar2=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar2).place(x=600,y=320)
     self.SepararReglas=Button(self.ventana, text="Separar Reglas",font=("Cascadia Code",10),padx=4,pady=1,command=self.int_sep_reglas).place(x=442,y=120)
     self.VAmbigüedad=Button(self.ventana,   text="Verificar Ambigüedad",font=("Cascadia Code",10),padx=4,pady=1,command=self.verify_amb).place(x=422,y=150)
     self.CAmbigüedad=Button(self.ventana,   text="Corregir  Ambigüedad",font=("Cascadia Code",10),padx=4,pady=1,command=self.sol_amb).place(x=422,y=180)
     self.VRecursividad=Button(self.ventana, text="Verificar Recursividad",font=("Cascadia Code",10),padx=4,pady=1,command=self.verify_rec).place(x=422,y=210)
     self.CRecursividad=Button(self.ventana, text="Corregir  Recursividad",font=("Cascadia Code",10),padx=4,pady=1,command=self.sol_rec).place(x=422,y=240)
     self.actEntrada=Button(self.ventana, text="  <<<<<  ",font=("Cascadia Code",10),padx=4,pady=1,command=self.actualizar).place(x=455,y=270)
-
+    #--
+    self.ConjPrimeros=Button(self.ventana, text="Primeros",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar1).place(x=100,y=400)
+    self.ConjSiguientes=Button(self.ventana, text="Siguientes",font=("Cascadia Code",10),padx=7,pady=1,command=self.limpiar2).place(x=770,y=400)
+    #--
     self.ventana.mainloop()
 
 
