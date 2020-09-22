@@ -1,0 +1,21 @@
+PASOS PARA TRABAJAR CON EL REPOSITORIO DE GITHUB
+1. Si quieres aumentar algo al repositorio lo primero
+es traerte los cambios actuales, para ello entras en la
+carpeta del proyecto en tu pc con tu consola de git(git bash)
+y ejecutas el siguiente comando:
+- git pull origin master
+2. Una vez con actualizado tu proyecto local, haz tus cambios con normalidad,
+cuando lo termines, primero guarda tu proyecto (ctrl + s) o file->guardar.
+3. Una vez guardado observa el estado del repositorio con el siguiente comando.
+- git status
+NOTA: observa si los archivos que aparecen ahi son los que modificaste,
+la carpeta pycache y la de checkpoints puede que se modifiquen si estan ahi 
+no los tomen en cuenta.
+4. Luego ejecuta los siguientes comandos antes de subir al remoto.
+(para mover a staging todos los cambios)
+- git add .
+- git commit -m "deja un mensaje aqui con lo que hiciste, se especifica"
+5. Una vez hecho el commit debes subir tus cambios al repositorio remoto
+- git push origin master
+NOTA: procura subir tus cambios en poco tiempo si te tomas varios dias puede
+que tengas conflictos, en todo caso ve subiendo tu avance poco a poco.
