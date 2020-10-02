@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import scrolledtext
 from tkinter import font
 import tkinter as tk
+from tkinter import messagebox
 
 from modulos import *
 
@@ -58,7 +59,9 @@ class Analizador():
     #--
     self.ventana.mainloop()
 
-
+    # Mensajes
+ 
+    #---------------------------------------------------
   def actualizar(self):
     self.saveText = self.display2.get('1.0', tk.END)
     self.display1.delete('1.0',END)
@@ -95,15 +98,15 @@ class Analizador():
     dic1 = OrganizarToAnalisis(reglas)
     err = AnalizarForRec(dic1)
     if (len(err) == 0):
-      print("no hay recursividad")
-      rpta = "no hay recursividad"
-      self.display2.delete('1.0',END)
-      self.display2.insert(tk.INSERT,rpta)
+      Mensaje = messagebox.showinfo(message="No existe recursividad", title="Recursividad")
+      #self.display2.delete('1.0',END)
+      self.ventana.insert(tk.INSERT,Mensaje)
     else:
-      print("si hay recursividad")
-      rpta = "si hay recursividad"
-      self.display2.delete('1.0',END)
-      self.display2.insert(tk.INSERT,rpta)
+      Mensaje = messagebox.showinfo(message="Si existe recursividad", title="Recursividad")
+      Pregunta = messagebox.askyesno(message="¿Corregir recursividad?", title="Recursividad")
+      print(Pregunta)
+      #self.display2.delete('1.0',END)
+      self.ventana.insert(tk.INSERT,Mensaje)
   
   def sol_rec(self):
     self.saveText = self.display1.get('1.0', tk.END)
@@ -121,15 +124,16 @@ class Analizador():
     dic1 = OrganizarToAnalisis(reglas)
     err = AnalizarForAmb(dic1)
     if (len(err) == 0):
-      print("no hay Ambiguedad")
-      rpta = "no hay Ambiguedad"
-      self.display2.delete('1.0',END)
-      self.display2.insert(tk.INSERT,rpta)
+      Mensaje = messagebox.showinfo(message="No existe ambiguedad", title="Ambiguedad")
+      #self.display2.delete('1.0',END)
+      self.ventana.insert(tk.INSERT,Mensaje)
     else:
-      print("si hay Ambiguedad")
-      rpta = "si hay Ambiguedad"
-      self.display2.delete('1.0',END)
-      self.display2.insert(tk.INSERT,rpta)
+      Mensaje = messagebox.showinfo(message="Si existe ambiguedad", title="Ambiguedad")
+      Pregunta = messagebox.askyesno(message="¿Corregir ambiguedad?", title="Ambiguedad")
+      print(Pregunta)
+      if Pregunta == 'yes':
+       self.sol_amb(self)
+      self.ventana.insert(tk.INSERT,Mensaje)
   
   def sol_amb(self):
     self.saveText = self.display1.get('1.0', END)
