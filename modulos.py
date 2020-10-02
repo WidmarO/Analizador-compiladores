@@ -23,8 +23,10 @@ def main():
 def LeerDatos(entrada):
   reglas = entrada.split("\n")
   reglas = [item for item in reglas if item]
-
-  # print("modulo LeerDatos en modulos.py\n",reglas)
+  for i in range(len(reglas)):
+    while(reglas[i][len(reglas[i])-1] == ' '):
+      reglas[i] = reglas[i][:-1]
+    # print("modulo LeerDatos en modulos.py\n",reglas)
   return reglas
 
 def SepararReglas(reglas):
@@ -157,7 +159,7 @@ def CorregirAmb(dic):
     err = AnalizarForAmb(dic3)
     dic3 = CorregirUnaAmb(dic3)
     dic3 = Reorganizar(dic3)
-  # print(dic3)
+  print(dic3)
   return dic3
 
 def MostrarCorregido(dic):
@@ -170,6 +172,14 @@ def MostrarCorregido(dic):
     chrs = chrs[:-2] + "\n"
     rpta += chrs
   return rpta
+
+def NoTerminales(reglas):
+  nonTerminals = set()
+  for i in reglas:
+    aux = i.split(" -> ")
+    nonTerminals.add(aux[0])
+  nonTerminals = list(nonTerminals)
+  return nonTerminals
 
 
 # main()

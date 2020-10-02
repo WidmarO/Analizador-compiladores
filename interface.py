@@ -116,7 +116,7 @@ class Analizador():
     self.display2.insert(tk.INSERT,rpta)
 
   def verify_amb(self):
-    self.saveText = self.display1.get('1.0', tk.END)
+    self.saveText = self.display1.get('1.0', END)
     reglas = self.leer()
     dic1 = OrganizarToAnalisis(reglas)
     err = AnalizarForAmb(dic1)
@@ -132,7 +132,7 @@ class Analizador():
       self.display2.insert(tk.INSERT,rpta)
   
   def sol_amb(self):
-    self.saveText = self.display1.get('1.0', tk.END)
+    self.saveText = self.display1.get('1.0', END)
     reglas = self.leer()
     dic1 = OrganizarToAnalisis(reglas)
     # err = AnalizarForAmb(dic1)
