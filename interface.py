@@ -23,10 +23,12 @@ class Analizador():
     self.display2 = scrolledtext.ScrolledText(self.ventana,width=45,height=15,font=("Cascadia Code",10))
     self.display2.place(x=600,y=70)
     #----
-    self.display3 = scrolledtext.ScrolledText(self.ventana,width=45,height=12,font=("Cascadia Code",10))
-    self.display3.place(x=100,y=440)
-    self.display4 = scrolledtext.ScrolledText(self.ventana,width=45,height=12,font=("Cascadia Code",10))
-    self.display4.place(x=520,y=440)
+    self.display3 = scrolledtext.ScrolledText(self.ventana,width=28,height=12,font=("Cascadia Code",10))
+    self.display3.place(x=40,y=440)
+    self.display4 = scrolledtext.ScrolledText(self.ventana,width=28,height=12,font=("Cascadia Code",10))
+    self.display4.place(x=290,y=440)
+    self.display5 = scrolledtext.ScrolledText(self.ventana,width=45,height=12,font=("Cascadia Code",10))
+    self.display5.place(x=550,y=440)
     #---
     self.label1 = Label(self.ventana,text="ANALIZADOR",bg="light steel blue",font=("Cascadia Code",18),width=20)
     self.label1.place(x=350,y=5)
@@ -36,7 +38,11 @@ class Analizador():
     self.label1.place(x=700,y=30)
     #--
     self.label1 = Label(self.ventana,text="Conjuntos Primeros y Siguientes",font=("Zeppelin 2",14),width=25)
-    self.label1.place(x=350,y=365)
+    self.label1.place(x=350,y=335)
+    self.label1 = Label(self.ventana,text="No terminales",font=("Zeppelin 2",10),width=20)
+    self.label1.place(x=65,y=410)
+    self.label1 = Label(self.ventana,text="Terminales",font=("Zeppelin 2",10),width=15)
+    self.label1.place(x=340,y=410)
     #--
     
     #botones
@@ -46,7 +52,7 @@ class Analizador():
 
 
     self.limpiar1=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar1).place(x=20,y=320)
-    self.limpiar2=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar2).place(x=600,y=320)
+    self.limpiar2=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar2).place(x=875,y=320)
     self.SepararReglas=Button(self.ventana, text="Separar Reglas",font=("Cascadia Code",10),padx=4,pady=1,command=self.int_sep_reglas).place(x=442,y=120)
     self.VAmbigüedad=Button(self.ventana,   text="Verificar Ambigüedad",font=("Cascadia Code",10),padx=4,pady=1,command=self.verify_amb).place(x=422,y=150)
     self.CAmbigüedad=Button(self.ventana,   text="Corregir  Ambigüedad",font=("Cascadia Code",10),padx=4,pady=1,command=self.sol_amb).place(x=422,y=180)
@@ -54,14 +60,19 @@ class Analizador():
     self.CRecursividad=Button(self.ventana, text="Corregir  Recursividad",font=("Cascadia Code",10),padx=4,pady=1,command=self.sol_rec).place(x=422,y=240)
     self.actEntrada=Button(self.ventana, text="  <<<<<  ",font=("Cascadia Code",10),padx=4,pady=1,command=self.actualizar).place(x=455,y=270)
     #--
-    self.ConjPrimeros=Button(self.ventana, text="Primeros",font=("Cascadia Code",10),padx=4,pady=1,command=self.primeros).place(x=100,y=400)
-    self.ConjSiguientes=Button(self.ventana, text="Siguientes",font=("Cascadia Code",10),padx=7,pady=1,command=self.limpiar2).place(x=770,y=400)
+    self.ConjPrimeros=Button(self.ventana, text="Primeros",font=("Cascadia Code",10),padx=4,pady=1,command=self.primeros).place(x=250,y=375)
+    self.ConjSiguientes=Button(self.ventana, text="Siguientes",font=("Cascadia Code",10),padx=7,pady=1,command=self.limpiar2).place(x=680,y=390)
+    self.Recomendaciones=Button(self.ventana, text="Ayuda",font=("Cascadia Code",10),padx=3,pady=1,command=self.recomendaciones).place(x=1,y=1)
     #--
     self.ventana.mainloop()
 
     # Mensajes
  
     #---------------------------------------------------
+  def recomendaciones(self):
+    messagebox.showinfo(message="- Si deseas ingresar varias reglas en una sola linea, debes separarlas con el siguiente caracter ' | '. \n Ejm: E -> + A | - A | B \n"
+    "- Para ingresar las reglas debe seguir el siguiente formato: \n E -> abE \n" "- Cada estado debe estar separado por un espacio", title="Recomendaciones")
+
   def actualizar(self):
     self.saveText = self.display2.get('1.0', tk.END)
     self.display1.delete('1.0',END)
