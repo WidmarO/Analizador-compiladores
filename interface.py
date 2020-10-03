@@ -54,7 +54,7 @@ class Analizador():
     self.CRecursividad=Button(self.ventana, text="Corregir  Recursividad",font=("Cascadia Code",10),padx=4,pady=1,command=self.sol_rec).place(x=422,y=240)
     self.actEntrada=Button(self.ventana, text="  <<<<<  ",font=("Cascadia Code",10),padx=4,pady=1,command=self.actualizar).place(x=455,y=270)
     #--
-    self.ConjPrimeros=Button(self.ventana, text="Primeros",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar1).place(x=100,y=400)
+    self.ConjPrimeros=Button(self.ventana, text="Primeros",font=("Cascadia Code",10),padx=4,pady=1,command=self.primeros).place(x=100,y=400)
     self.ConjSiguientes=Button(self.ventana, text="Siguientes",font=("Cascadia Code",10),padx=7,pady=1,command=self.limpiar2).place(x=770,y=400)
     #--
     self.ventana.mainloop()
@@ -67,18 +67,12 @@ class Analizador():
     self.display1.delete('1.0',END)
     self.display1.insert(tk.INSERT, self.saveText)
 
-  def copiar(self):
-    self.saveText = self.display1.get('1.0', tk.END)
-    # aux = [self.saveText]
-    print(self.saveText)
-    self.display2.delete('1.0',END)
-    self.display2.insert(tk.INSERT,self.saveText)
-
   def limpiar1(self):
     self.display1.delete('1.0',END)
 
   def limpiar2(self):
     self.display2.delete('1.0',END)
+
   def leer(self):
     self.saveText = self.display1.get('1.0', tk.END)
     datos = str(self.saveText)
@@ -86,30 +80,33 @@ class Analizador():
     return reglas
 
   def int_sep_reglas(self):
-    self.saveText = self.display1.get('1.0', tk.END)
+    # self.saveText = self.display1.get('1.0', tk.END)
     reglas = self.leer()
     rpta = SepararReglas(reglas)
     self.display2.delete('1.0',END)
     self.display2.insert(tk.INSERT,rpta)
 
   def verify_rec(self):
-    self.saveText = self.display1.get('1.0', tk.END)
+    # self.saveText = self.display1.get('1.0', tk.END)
     reglas = self.leer()
     dic1 = OrganizarToAnalisis(reglas)
     err = AnalizarForRec(dic1)
     if (len(err) == 0):
-      Mensaje = messagebox.showinfo(message="No existe recursividad", title="Recursividad")
+      # Mensaje = 
+      messagebox.showinfo(message="No existe recursividad", title="Recursividad")
       #self.display2.delete('1.0',END)
-      self.ventana.insert(tk.INSERT,Mensaje)
+      # self.ventana.insert(tk.INSERT,Mensaje)
     else:
       Mensaje = messagebox.showinfo(message="Si existe recursividad", title="Recursividad")
       Pregunta = messagebox.askyesno(message="¿Corregir recursividad?", title="Recursividad")
       print(Pregunta)
+      if (Pregunta):
+        self.sol_rec()
       #self.display2.delete('1.0',END)
-      self.ventana.insert(tk.INSERT,Mensaje)
+      # self.ventana.insert(tk.INSERT,Mensaje)
   
   def sol_rec(self):
-    self.saveText = self.display1.get('1.0', tk.END)
+    # self.saveText = self.display1.get('1.0', tk.END)
     reglas = self.leer()
     dic1 = OrganizarToAnalisis(reglas)
     # err = AnalizarForRec(dic1)
@@ -124,19 +121,18 @@ class Analizador():
     dic1 = OrganizarToAnalisis(reglas)
     err = AnalizarForAmb(dic1)
     if (len(err) == 0):
-      Mensaje = messagebox.showinfo(message="No existe ambiguedad", title="Ambiguedad")
-      #self.display2.delete('1.0',END)
-      self.ventana.insert(tk.INSERT,Mensaje)
+      messagebox.showinfo(message="No existe ambiguedad", title="Ambiguedad")
+      
     else:
-      Mensaje = messagebox.showinfo(message="Si existe ambiguedad", title="Ambiguedad")
+      messagebox.showinfo(message="Si existe ambiguedad", title="Ambiguedad")
       Pregunta = messagebox.askyesno(message="¿Corregir ambiguedad?", title="Ambiguedad")
       print(Pregunta)
-      if Pregunta == 'yes':
-       self.sol_amb(self)
-      self.ventana.insert(tk.INSERT,Mensaje)
+      if (Pregunta):
+        self.sol_amb()
+      # self.ventana.insert(tk.INSERT,Mensaje)
   
   def sol_amb(self):
-    self.saveText = self.display1.get('1.0', END)
+    # self.saveText = self.display1.get('1.0', END)
     reglas = self.leer()
     dic1 = OrganizarToAnalisis(reglas)
     # err = AnalizarForAmb(dic1)
@@ -145,7 +141,19 @@ class Analizador():
     self.display2.delete('1.0',END)
     self.display2.insert(tk.INSERT,rpta)
 
-
+  def primeros(self):
+    reglas = self.leer()
+    dic1 = OrganizarToAnalisis(reglas)
+    conj_primeros = Primeros(dic1)
+    rpta = ""
+    aux = ""
+    for i in conj_primeros:
+      aux += str(i) + str(conj_primeros[i]) + "\n"
+    rpta = str(aux)
+    self.display3.delete('1.0',END)
+    self.display3.insert(tk.INSERT,rpta)
+    print("No terminales: ",NoTerminales(dic1))
+    print("terminales:",Terminales(dic1))
 
 if __name__=="__main__":
   Analizador()

@@ -173,10 +173,6 @@ def MostrarCorregido(dic):
     rpta += chrs
   return rpta
 
-# def Primeros(dic):
-
-
-
 def NoTerminales(reglas):
   nonTerminals = set()
   for i in reglas:
@@ -185,23 +181,43 @@ def NoTerminales(reglas):
   nonTerminals = list(nonTerminals)
   return nonTerminals
 
-def separate(reglas):
-  caracteres = set()
-  for regla in reglas:
-    aux = regla.split(" -> ")[1]    
-    # aux = aux.strip()
-    for i in range(len(aux)):
-      caracteres.add(aux[i])
+def Terminales(dic):
+  no_terminales = NoTerminales(dic)
+  terminales = []
+  for e in dic:
+    for token in dic[e]:
+      for est in token:
+        for x in est.split(' '):          
+          terminales.append(x)
+  
+  for e in terminales:
+    if(e[0] == '(' or e[0] == '['):
+      terminales.remove(e)
+      for i in e:
+        terminales.append(i)
 
-  caracteres = list(caracteres)
-  return caracteres
+  terminales = list(set(terminales))
+  for i in no_terminales:
+    if (i in terminales):
+      terminales.remove(i)
 
+  return terminales
 
-def Terminals(reglas):
-  terminales = set()
-  for i in reglas:
-    aux = i.split(" -> ")
-    
+def Primeros(dic):
+  conj_primeros = {}
+  terminales = Terminales(dic)
+  no_terminales = NoTerminales(dic)
+  todos = set(terminales + no_terminales)
+
+  for i in todos:
+    conj_primeros[i] = set()
+
+  for i in terminales:
+    conj_primeros[i].add(i)
+  
+  # for i in no_terminales:10
+
+  return conj_primeros
 
 # main()
 
