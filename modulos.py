@@ -200,6 +200,9 @@ def Terminales(dic):
   for i in no_terminales:
     if (i in terminales):
       terminales.remove(i)
+  
+  if ('ε' in terminales):
+    terminales.remove('ε')
 
   return terminales
 
@@ -252,11 +255,6 @@ def PrimerosNoTerminales(dic):
   primeros = PrimerosSimples(dic)
   ans = {}
 
-  # for e in primeros:
-  #   ans[e] = []
-  #   for p in primeros[e]:
-  #     ans[e].append(p)
-
   aux = []
   for e in terminales:
     # if (e not in no_terminales):
@@ -298,10 +296,7 @@ def Primeros1(dic):
       if(len(token[0]) > 1 and (token[0][0] == '(' or token[0][0] == '(')):
         conj_primeros[e].add(token[0][0])
       
-      # if(token[0] is in no_terminales):
 
-  
-  # for i in no_terminales:10
 
   return conj_primeros
 
