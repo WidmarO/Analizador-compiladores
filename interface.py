@@ -39,9 +39,9 @@ class Analizador():
     #--
     self.label1 = Label(self.ventana,text="Conjuntos Primeros y Siguientes",font=("Zeppelin 2",14),width=25)
     self.label1.place(x=350,y=335)
-    self.label1 = Label(self.ventana,text="No terminales",font=("Zeppelin 2",10),width=20)
+    self.label1 = Label(self.ventana,text="Terminales",font=("Zeppelin 2",10),width=20)
     self.label1.place(x=65,y=410)
-    self.label1 = Label(self.ventana,text="Terminales",font=("Zeppelin 2",10),width=15)
+    self.label1 = Label(self.ventana,text="No Terminales",font=("Zeppelin 2",10),width=15)
     self.label1.place(x=340,y=410)
     #--
     
@@ -160,6 +160,8 @@ class Analizador():
 
     rpta1 = ""
     aux1 = ""
+    rpta2 = ""
+    aux2 = ""
     for i in conj_primeros_no_terminales:
       conj_primeros_no_terminales[i].sort()    
 
@@ -167,8 +169,16 @@ class Analizador():
       aux1 += str(i) + " = " + str(conj_primeros_no_terminales[i]) + " " + "\n"
     rpta1 = str(aux1)
 
+    for i in conj_primeros_terminales:
+      aux2 += str(i) + " = " + str(conj_primeros_terminales[i]) + " " + "\n"
+    rpta2 = str(aux2)
+
+    self.display4.delete('1.0',END)
+    self.display4.insert(tk.INSERT,rpta1)
+
     self.display3.delete('1.0',END)
-    self.display3.insert(tk.INSERT,rpta)
+    self.display3.insert(tk.INSERT,rpta2)
+
     
     print("No terminales: ",NoTerminales(dic1))
     print("terminales:",Terminales(dic1))
