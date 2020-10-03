@@ -122,7 +122,7 @@ class Analizador():
     err = AnalizarForAmb(dic1)
     if (len(err) == 0):
       messagebox.showinfo(message="No existe ambiguedad", title="Ambiguedad")
-      
+
     else:
       messagebox.showinfo(message="Si existe ambiguedad", title="Ambiguedad")
       Pregunta = messagebox.askyesno(message="¿Corregir ambiguedad?", title="Ambiguedad")
@@ -144,14 +144,21 @@ class Analizador():
   def primeros(self):
     reglas = self.leer()
     dic1 = OrganizarToAnalisis(reglas)
-    conj_primeros = Primeros(dic1)
-    rpta = ""
-    aux = ""
-    for i in conj_primeros:
-      aux += str(i) + str(conj_primeros[i]) + "\n"
-    rpta = str(aux)
+    conj_primeros_terminales = PrimerosTerminales(dic1)
+    conj_primeros_no_terminales = PrimerosNoTerminales(dic1)
+
+    rpta1 = ""
+    aux1 = ""
+    for i in conj_primeros_no_terminales:
+      conj_primeros_no_terminales[i].sort()    
+
+    for i in conj_primeros_no_terminales:
+      aux1 += str(i) + " = " + str(conj_primeros_no_terminales[i]) + " " + "\n"
+    rpta1 = str(aux1)
+
     self.display3.delete('1.0',END)
     self.display3.insert(tk.INSERT,rpta)
+    
     print("No terminales: ",NoTerminales(dic1))
     print("terminales:",Terminales(dic1))
 

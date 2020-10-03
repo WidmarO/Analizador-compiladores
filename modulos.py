@@ -121,7 +121,7 @@ def CorregirRec(dic):
           corregido[e].append([token[0] + " " + e + "'"])
         else:
           corregido[e + "'"].append([(token[1]) + " " + e + "'"])
-      corregido[e + "'"].append(["\u03B5"])
+      corregido[e + "'"].append(["ε"])
     else:
       corregido[e] = dic[e]  
   print(corregido)
@@ -203,17 +203,92 @@ def Terminales(dic):
 
   return terminales
 
-def Primeros(dic):
+def PrimerosSimples(dic):
+  terminales = Terminales(dic)
+  no_terminales = NoTerminales(dic)
+  todos = set(terminales + no_terminales)
+  conj_primeros = {}
+
+  for e in todos:
+    conj_primeros[e] = set()
+
+  for i in terminales:
+    if(i == "ε"):
+      continue
+    else:
+      conj_primeros[i].add(i)
+
+  for e in dic:
+    for token in dic[e]:
+      if (len(token[0]) > 1 and (token[0][0] == "(" or token[0][0] == "[")):
+        conj_primeros[e].add(token[0][0])
+      else:
+        conj_primeros[e].add(token[0])      
+
+  for e in conj_primeros:
+    conj_primeros[e] = list(conj_primeros[e])
+
+  return conj_primeros
+
+def PrimerosTerminales(dic):
+  terminales = Terminales(dic)
+  primeros = PrimerosSimples(dic)
+  aux = []
+  for e in primeros:
+    if (e not in terminales):
+      aux.append(e)
+
+  for x in aux:
+    del primeros[x]
+
+  return primeros
+
+def PrimerosNoTerminales(dic):
+  no_terminales = NoTerminales(dic)
+  primeros = PrimerosSimples(dic)
+  ans = primeros
+
+  aux = []
+  for e in primeros:
+    if (e not in no_terminales):
+      aux.append(e)
+  
+  for x in aux:
+    del primeros[x]
+  
+  for e in primeros:
+    for est in primeros[e]:
+      if(est in primeros):
+        ans[e].remove(est)
+        for i in primeros[est]:
+          ans[e].append(i)
+
+  return ans
+
+
+def Primeros1(dic):
   conj_primeros = {}
   terminales = Terminales(dic)
   no_terminales = NoTerminales(dic)
   todos = set(terminales + no_terminales)
-
+  
   for i in todos:
     conj_primeros[i] = set()
-
+  # primeros para los terminales
   for i in terminales:
+    # if(i == "")
     conj_primeros[i].add(i)
+  # primeros de los no terminales
+  for e in dic:
+    for token in dic[e]:
+      if(token[0] in terminales):
+          conj_primeros[e].add(token[0])        
+
+      if(len(token[0]) > 1 and (token[0][0] == '(' or token[0][0] == '(')):
+        conj_primeros[e].add(token[0][0])
+      
+      # if(token[0] is in no_terminales):
+
   
   # for i in no_terminales:10
 
