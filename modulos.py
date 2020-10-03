@@ -241,30 +241,41 @@ def PrimerosTerminales(dic):
   for x in aux:
     del primeros[x]
 
+  if ('ε' in primeros):
+    del primeros['ε']
+  
   return primeros
 
 def PrimerosNoTerminales(dic):
   no_terminales = NoTerminales(dic)
+  terminales = Terminales(dic)
   primeros = PrimerosSimples(dic)
-  ans = primeros
+  ans = {}
+
+  # for e in primeros:
+  #   ans[e] = []
+  #   for p in primeros[e]:
+  #     ans[e].append(p)
 
   aux = []
-  for e in primeros:
-    if (e not in no_terminales):
-      aux.append(e)
+  for e in terminales:
+    # if (e not in no_terminales):
+    aux.append(e)
   
   for x in aux:
+    # del ans[x]
     del primeros[x]
   
   for e in primeros:
+    ans[e] = []
     for est in primeros[e]:
       if(est in primeros):
-        ans[e].remove(est)
+        # primeros[e].remove(est)
         for i in primeros[est]:
           ans[e].append(i)
-
+      else:
+        ans[e].append(est)
   return ans
-
 
 def Primeros1(dic):
   conj_primeros = {}
@@ -293,6 +304,36 @@ def Primeros1(dic):
   # for i in no_terminales:10
 
   return conj_primeros
+
+def SplitForFollows(dic):
+  for e in dic:
+    aux = []
+    for token in dic[e]:      
+      x = []
+      for tok in token:
+        for st in tok.split(' '):
+          if(len(st) > 1 and (st[0] == "(" or st[0] == "[")):
+            for i in st:
+              x.append(i)
+          else:
+            x.append(st)
+      aux.append(x)
+    dic[e] = aux
+  return dic
+
+# def SiguientesMain(dic1):
+#   dic2 = {}
+#   for e in dic1:
+#     dic2[e] = []
+#     for state in dic1[e]:
+#       dic2[e] = siguientes(dic1,dic2,e)
+
+# def siguientes(dic1,dic2,state):
+#   if()
+
+
+
+
 
 # main()
 

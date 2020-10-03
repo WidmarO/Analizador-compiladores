@@ -12,37 +12,37 @@ class Analizador():
     self.ventana.title("COMPILADORES")
     #self.label1 = Label(self.ventana,text="Entrada(reglas)",font=("Zeppelin 2",14),bg="light steel blue",width=64)
     self.ventana['bg'] = 'light steel blue'
-    self.ventana.geometry('960x650')
+    self.ventana.geometry('1050x680')
     self.texto = ""
     self.traduc = ""
     self.finished = True
     self.copia = ""
 
-    self.display1 = scrolledtext.ScrolledText(self.ventana,width=45,height=15,font=("Cascadia Code",10))
+    self.display1 = scrolledtext.ScrolledText(self.ventana,width=40,height=12,font=("Cascadia Code",12))
     self.display1.place(x=20,y=70)
-    self.display2 = scrolledtext.ScrolledText(self.ventana,width=45,height=15,font=("Cascadia Code",10))
-    self.display2.place(x=600,y=70)
+    self.display2 = scrolledtext.ScrolledText(self.ventana,width=40,height=12,font=("Cascadia Code",12))
+    self.display2.place(x=620,y=70)
     #----
-    self.display3 = scrolledtext.ScrolledText(self.ventana,width=28,height=12,font=("Cascadia Code",10))
-    self.display3.place(x=40,y=440)
-    self.display4 = scrolledtext.ScrolledText(self.ventana,width=28,height=12,font=("Cascadia Code",10))
-    self.display4.place(x=290,y=440)
-    self.display5 = scrolledtext.ScrolledText(self.ventana,width=45,height=12,font=("Cascadia Code",10))
-    self.display5.place(x=550,y=440)
+    self.display3 = scrolledtext.ScrolledText(self.ventana,width=18,height=12,font=("Cascadia Code",12))
+    self.display3.place(x=20,y=440)
+    self.display4 = scrolledtext.ScrolledText(self.ventana,width=34,height=12,font=("Cascadia Code",12))
+    self.display4.place(x=230,y=440)
+    self.display5 = scrolledtext.ScrolledText(self.ventana,width=40,height=12,font=("Cascadia Code",12))
+    self.display5.place(x=600,y=440)
     #---
     self.label1 = Label(self.ventana,text="ANALIZADOR",bg="light steel blue",font=("Cascadia Code",18),width=20)
-    self.label1.place(x=350,y=5)
+    self.label1.place(x=370,y=5)
     self.label1 = Label(self.ventana,text="ENTRADA(reglas)",font=("Zeppelin 2",14),width=15)
     self.label1.place(x=120,y=30)
     self.label1 = Label(self.ventana,text="SALIDA",font=("Zeppelin 2",14),width=15)
-    self.label1.place(x=700,y=30)
+    self.label1.place(x=715,y=30)
     #--
-    self.label1 = Label(self.ventana,text="Conjuntos Primeros y Siguientes",font=("Zeppelin 2",14),width=25)
+    self.label1 = Label(self.ventana,text="Conjuntos Primeros y Siguientes",font=("Zeppelin 2",16),width=25)
     self.label1.place(x=350,y=335)
-    self.label1 = Label(self.ventana,text="Terminales",font=("Zeppelin 2",10),width=20)
-    self.label1.place(x=65,y=410)
+    self.label1 = Label(self.ventana,text="Terminales",font=("Zeppelin 2",10),width=15)
+    self.label1.place(x=40,y=410)
     self.label1 = Label(self.ventana,text="No Terminales",font=("Zeppelin 2",10),width=15)
-    self.label1.place(x=340,y=410)
+    self.label1.place(x=330,y=410)
     #--
     
     #botones
@@ -51,17 +51,17 @@ class Analizador():
     # self.btnReset.place(x=20,y=430)
 
 
-    self.limpiar1=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar1).place(x=20,y=320)
-    self.limpiar2=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar2).place(x=875,y=320)
-    self.SepararReglas=Button(self.ventana, text="Separar Reglas",font=("Cascadia Code",10),padx=4,pady=1,command=self.int_sep_reglas).place(x=442,y=120)
-    self.VAmbigüedad=Button(self.ventana,   text="Verificar Ambigüedad",font=("Cascadia Code",10),padx=4,pady=1,command=self.verify_amb).place(x=422,y=150)
-    self.CAmbigüedad=Button(self.ventana,   text="Corregir  Ambigüedad",font=("Cascadia Code",10),padx=4,pady=1,command=self.sol_amb).place(x=422,y=180)
-    self.VRecursividad=Button(self.ventana, text="Verificar Recursividad",font=("Cascadia Code",10),padx=4,pady=1,command=self.verify_rec).place(x=422,y=210)
-    self.CRecursividad=Button(self.ventana, text="Corregir  Recursividad",font=("Cascadia Code",10),padx=4,pady=1,command=self.sol_rec).place(x=422,y=240)
-    self.actEntrada=Button(self.ventana, text="  <<<<<  ",font=("Cascadia Code",10),padx=4,pady=1,command=self.actualizar).place(x=455,y=270)
+    self.limpiar1=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar1).place(x=20,y=310)
+    self.limpiar2=Button(self.ventana, text="Limpiar",font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar2).place(x=970,y=310)
+    self.SepararReglas=Button(self.ventana, text="Separar Reglas",font=("Cascadia Code",10),padx=4,pady=1,command=self.int_sep_reglas).place(x=472,y=120)
+    self.VAmbigüedad=Button(self.ventana,   text="Verificar Ambigüedad",font=("Cascadia Code",10),padx=4,pady=1,command=self.verify_amb).place(x=452,y=150)
+    self.CAmbigüedad=Button(self.ventana,   text="Corregir  Ambigüedad",font=("Cascadia Code",10),padx=4,pady=1,command=self.sol_amb).place(x=452,y=180)
+    self.VRecursividad=Button(self.ventana, text="Verificar Recursividad",font=("Cascadia Code",10),padx=4,pady=1,command=self.verify_rec).place(x=452,y=210)
+    self.CRecursividad=Button(self.ventana, text="Corregir  Recursividad",font=("Cascadia Code",10),padx=4,pady=1,command=self.sol_rec).place(x=452,y=240)
+    self.actEntrada=Button(self.ventana, text="  <<<<<  ",font=("Cascadia Code",10),padx=4,pady=1,command=self.actualizar).place(x=485,y=270)
     #--
-    self.ConjPrimeros=Button(self.ventana, text="Primeros",font=("Cascadia Code",10),padx=4,pady=1,command=self.primeros).place(x=250,y=375)
-    self.ConjSiguientes=Button(self.ventana, text="Siguientes",font=("Cascadia Code",10),padx=7,pady=1,command=self.limpiar2).place(x=680,y=390)
+    self.ConjPrimeros=Button(self.ventana, text="Primeros",font=("Cascadia Code",10),padx=4,pady=1,command=self.primeros).place(x=220,y=375)
+    self.ConjSiguientes=Button(self.ventana, text="Siguientes",font=("Cascadia Code",10),padx=7,pady=1,command=self.siguientes).place(x=735,y=390)
     self.Recomendaciones=Button(self.ventana, text="Ayuda",font=("Cascadia Code",10),padx=3,pady=1,command=self.recomendaciones).place(x=1,y=1)
     #--
     self.ventana.mainloop()
@@ -70,9 +70,9 @@ class Analizador():
  
     #---------------------------------------------------
   def recomendaciones(self):
-    messagebox.showinfo(message="- Si deseas ingresar varias reglas en una sola linea, debes separarlas con el siguiente caracter ' | '. \n Ejm: E -> + A | - A | B \n"
-    "- Para ingresar las reglas debe seguir el siguiente formato: \n E -> abE \n" "- Cada estado debe estar separado por un espacio", title="Recomendaciones")
-
+    messagebox.showinfo(message="NOTA: Si deseas ingresar varias reglas en una sola linea, debes separarlas con el siguiente caracter:\n\t        ' | '\nEjm: \n\tE -> + A | - A | B \n\n"
+    "Para ingresar las reglas debe seguir el siguiente formato: \n\n\t E -> a b E \n\nDonde cada estado debe estar separado por un espacio.", title="Recomendaciones")
+  
   def actualizar(self):
     self.saveText = self.display2.get('1.0', tk.END)
     self.display1.delete('1.0',END)
@@ -166,11 +166,11 @@ class Analizador():
       conj_primeros_no_terminales[i].sort()    
 
     for i in conj_primeros_no_terminales:
-      aux1 += str(i) + " = " + str(conj_primeros_no_terminales[i]) + " " + "\n"
+      aux1 += "First ( "+str(i)+" )" + " = { " + str(conj_primeros_no_terminales[i])[1:-1] + "} " + "\n"
     rpta1 = str(aux1)
 
     for i in conj_primeros_terminales:
-      aux2 += str(i) + " = " + str(conj_primeros_terminales[i]) + " " + "\n"
+      aux2 += "First ( "+str(i)+" )" + " = { " + str(conj_primeros_terminales[i])[1:-1] + "} " + "\n"
     rpta2 = str(aux2)
 
     self.display4.delete('1.0',END)
@@ -182,6 +182,18 @@ class Analizador():
     
     print("No terminales: ",NoTerminales(dic1))
     print("terminales:",Terminales(dic1))
+
+  def siguientes(self):
+    reglas = self.leer()
+    dic1 = OrganizarToAnalisis(reglas)
+    dic2 = SplitForFollows(dic1)
+
+    chr = ""
+    for i in dic2:
+      chr += str(i) + " = " + str(dic2[i]) + "\n"
+
+    self.display5.delete('1.0',END)
+    self.display5.insert(tk.INSERT,chr)
 
 if __name__=="__main__":
   Analizador()
