@@ -109,7 +109,6 @@ def AnalizarForAmb(dic):
     return errores
 
 def CorregirRec(dic):
-
   err = AnalizarForRec(dic)
   corregido = {}
   for e in dic:
@@ -173,12 +172,14 @@ def MostrarCorregido(dic):
     rpta += chrs
   return rpta
 
-def NoTerminales(reglas):
-  nonTerminals = set()
-  for i in reglas:
-    aux = i.split(" -> ")
-    nonTerminals.add(aux[0])
-  nonTerminals = list(nonTerminals)
+
+
+def NoTerminales(dic):
+  nonTerminals = []
+  for e in dic:
+    if e not in nonTerminals:
+      nonTerminals.append(e)
+  
   return nonTerminals
 
 def Terminales(dic):
@@ -209,7 +210,8 @@ def Terminales(dic):
 def PrimerosSimples(dic):
   terminales = Terminales(dic)
   no_terminales = NoTerminales(dic)
-  todos = set(terminales + no_terminales)
+  todos = list(no_terminales + terminales)
+  print("modulo primeros simple variable todos: ",todos)
   conj_primeros = {}
 
   for e in todos:
@@ -243,62 +245,28 @@ def PrimerosTerminales(dic):
 
   for x in aux:
     del primeros[x]
-
-  if ('ε' in primeros):
-    del primeros['ε']
   
   return primeros
 
 def PrimerosNoTerminales(dic):
   no_terminales = NoTerminales(dic)
-  terminales = Terminales(dic)
-  primeros = PrimerosSimples(dic)
-  ans = {}
-
-  aux = []
-  for e in terminales:
-    # if (e not in no_terminales):
-    aux.append(e)
+  solo_primeros = PrimerosSimples(dic)
+  answer = {}
+  for e in no_terminales:
+    answer[e] = set()
+  for e in no_terminales:        
+    answer[e] = getPrimeros(e,answer,no_terminales,solo_primeros)
+  return answer
   
-  for x in aux:
-    # del ans[x]
-    del primeros[x]
-  
-  for e in primeros:
-    ans[e] = []
-    for est in primeros[e]:
-      if(est in primeros):
-        # primeros[e].remove(est)
-        for i in primeros[est]:
-          ans[e].append(i)
-      else:
-        ans[e].append(est)
-  return ans
-
-def Primeros1(dic):
-  conj_primeros = {}
-  terminales = Terminales(dic)
-  no_terminales = NoTerminales(dic)
-  todos = set(terminales + no_terminales)
-  
-  for i in todos:
-    conj_primeros[i] = set()
-  # primeros para los terminales
-  for i in terminales:
-    # if(i == "")
-    conj_primeros[i].add(i)
-  # primeros de los no terminales
-  for e in dic:
-    for token in dic[e]:
-      if(token[0] in terminales):
-          conj_primeros[e].add(token[0])        
-
-      if(len(token[0]) > 1 and (token[0][0] == '(' or token[0][0] == '(')):
-        conj_primeros[e].add(token[0][0])
-      
+def getPrimeros(e,ans,no_terminales,prims):  
+  for i in prims[e]:
+    if (i not in no_terminales):
+      ans[e].add(i)
+    else:
+      ans[e] = ans[e].union(getPrimeros(i,ans,no_terminales,prims))
+  return ans[e]
 
 
-  return conj_primeros
 
 def SplitForFollows(dic):
   for e in dic:
@@ -316,20 +284,22 @@ def SplitForFollows(dic):
     dic[e] = aux
   return dic
 
-# def SiguientesMain(dic1):
-#   dic2 = {}
-#   for e in dic1:
-#     dic2[e] = []
-#     for state in dic1[e]:
-#       dic2[e] = siguientes(dic1,dic2,e)
+# def Siguientes(dic): # recibe el diccionario que devuelve SplitForFollows
+#   pila , ans = [] , {}
+#   for e in dic:
+#     ans[e] = []
 
-# def siguientes(dic1,dic2,state):
-#   if()
+#   for e in dic:
+#     siguientes(dic,pila,e,ans)
 
 
+# def siguientes(dic,pila,e,conj_sig):
+#   if(len(conj_sig) == 0):
+#     conj_sig[e].append('$')
+#   for p in dic:
+#     for rule in dic[p]:
+#       for tok in rule:
+#         if(tok == e):
 
-
-
-# main()
 
 

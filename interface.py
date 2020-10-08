@@ -157,13 +157,14 @@ class Analizador():
     dic1 = OrganizarToAnalisis(reglas)
     conj_primeros_terminales = PrimerosTerminales(dic1)
     conj_primeros_no_terminales = PrimerosNoTerminales(dic1)
-
+    conj_primeros_general = PrimerosSimples(dic1)
+    print("conjunto primeros general : ",conj_primeros_general)
     rpta1 = ""
     aux1 = ""
     rpta2 = ""
     aux2 = ""
-    for i in conj_primeros_no_terminales:
-      conj_primeros_no_terminales[i].sort()    
+    # for i in conj_primeros_no_terminales:
+    #   conj_primeros_no_terminales[i].sort()    
 
     for i in conj_primeros_no_terminales:
       aux1 += "First ( "+str(i)+" )" + " = { " + str(conj_primeros_no_terminales[i])[1:-1] + "} " + "\n"
