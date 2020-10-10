@@ -96,13 +96,6 @@ class Analizador():
     # Mensajes
  
     #---------------------------------------------------
-  def Tabla(self):
-    nr = 8
-    nc = 12
-    for r in range(nr):  
-      for c in range(nc):
-        Label(self.display6, text = 'R%s/C%s'%(r,c), font=("Open Sans",10), borderwidth=1).grid(padx = 5, ipadx = 9,row = r,column=c)
-    #self.display6.insert(tk.INSERT,rpta)
     
   def recomendaciones(self):
     messagebox.showinfo(message="NOTA: Si deseas ingresar varias reglas en una sola linea, debes separarlas con el siguiente caracter:\n\t        ' | '\nEjm: \n\tE -> + A | - A | B \n\n"
@@ -223,15 +216,67 @@ class Analizador():
     reglas = self.leer()
     dic1 = OrganizarToAnalisis(reglas)
     dic2 = SplitForFollows(dic1)
-
-    getTabla(dic1)
-
+    siguientes = Siguientes(dic2,dic1)
+    ans = ""
     chr = ""
-    for i in dic2:
-      chr += str(i) + " = " + str(dic2[i]) + "\n"
+    for e in siguientes:
+      chr += "Follows(" +str(e) + ") = { "
+      for i in siguientes[e]:
+        chr += "'" + str(i) + "'" + " , "
+      chr = chr[:-3]
+      chr += "}\n"
 
+    # getTabla(dic1)
+ 
     self.display5.delete('1.0',END)
     self.display5.insert(tk.INSERT,chr)
+
+  def Tabla(self):
+    reglas = self.leer()
+    dic1 = OrganizarToAnalisis(reglas)
+    tabla = getTabla(dic1)
+
+    matriz = []
+    terminales = Terminales(dic1)
+    terminales = sorted(terminales)
+    terminales.append('$')
+
+    for r in range(len(tabla) + 1):  
+      matriz.append([])
+      for c in range(len(terminales) + 1):
+        matriz[r].append([])
+
+    aux = 1
+    for nt in tabla:
+      matriz[aux][0].append(nt)
+      aux += 1
+
+    aux = 1
+    for t in terminales:
+      matriz[0][aux].append(t)
+      aux += 1
+
+
+    x = 1
+    for nt in tabla:      
+      y = 1
+      for t in tabla[nt]:
+        matriz[x][y] = (list(tabla[nt][t])[0])
+        y += 1
+      x += 1
+    
+
+    print("aqui la matriz")
+    for fila in matriz:
+      print(fila)
+
+
+    for r in range(len(matriz) ):  
+      for c in range(len(matriz[r])):
+        if(r == 0 or c== 0):
+          Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="sunken", bd = 3,font=("Arial black bold",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)#.grid(padx = 10, ipadx = 9, pady = 1, row = r,column=c)
+        else:
+          Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="sunken", bd = 3,font=("Open Sans",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)
 
 
 if __name__=="__main__":

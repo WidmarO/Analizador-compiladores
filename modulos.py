@@ -1,24 +1,3 @@
-def main():
-  # leyendo los datos
-  reglas = LeerDatos()
-  # Separar Reglas para mostrar
-  to_show_rules = SepararReglas(reglas)
-  # # Organizar estructura para analizar
-  diccionario1 = OrganizarToAnalisis(reglas)
-  print('\n======== listo para analisis ==========\n')  
-  MostrarCorregido(diccionario1)
-  # for _ in diccionario1:
-  #   print(_,diccionario1[_])
-  print('\n======== corregir recursividad official ==========\n')
-  diccionario2 = CorregirRec(diccionario1)
-  MostrarCorregido(diccionario2)
-  # for i in diccionario2:
-  #   print(i,diccionario2[i])
-  print('\n======== corregir ambiguedad official ==========\n')
-  diccionario3 = CorregirAmb(diccionario1)
-  MostrarCorregido(diccionario3)
-  # for i in diccionario3:
-    # print(i,diccionario3[i])
 
 def LeerDatos(entrada):
   reglas = entrada.split("\n")
@@ -172,8 +151,6 @@ def MostrarCorregido(dic):
     rpta += chrs
   return rpta
 
-
-
 def NoTerminales(dic):
   nonTerminals = []
   for e in dic:
@@ -211,7 +188,7 @@ def PrimerosSimples(dic):
   terminales = Terminales(dic)
   no_terminales = NoTerminales(dic)
   todos = list(no_terminales + terminales)
-  print("modulo primeros simple variable todos: ",todos)
+  # print("modulo primeros simple variable todos: ",todos)
   conj_primeros = {}
 
   for e in todos:
@@ -308,7 +285,7 @@ def Siguientes(dic,dic2): # recibe el diccionario que devuelve SplitForFollows
 
   ans[no_terminales[0]].add('$')
   # print("este en el ans de siguientes: \n",ans)
-  print("esto es primeros: ",primeros)
+  # print("esto es primeros: ",primeros)
   for e in dic:
     pila = []
     ans[e] = getSiguientes(e,dic,ans,primeros,pila)
@@ -339,13 +316,12 @@ def getSiguientes(e,dic,ans,primeros,pila):
 
 def getTabla(dic):
   primeros = PrimerosTodos(dic)
-  # primeros['ε'] = ['ε']
+  
   reglas_separadas = SplitForFollows(dic)
   siguientes = Siguientes(reglas_separadas,dic)
   terminales = sorted(Terminales(dic))
   terminales.append('$')
   no_terminales = NoTerminales(dic)
-  prim_simples = PrimerosSimples(dic)
 
   print("primeros: ",primeros)
   print("siguientes: ",siguientes)
@@ -360,29 +336,27 @@ def getTabla(dic):
 
   for premisa in dic:
     for regla in dic[premisa]:   
-      print("regla: ",regla)       
+      # print("regla: ",regla)       
       p = regla[0]
-      print("premisa: ",premisa)
+      # print("premisa: ",premisa)
       if (p == 'ε'):
         for sig in siguientes[premisa]:
-          M[premisa][sig].add(str(premisa) + " -> " + str(regla))
+          M[premisa][sig].add(str(premisa) + " -> " + str(' '.join(regla)))
       else:
         for prim in primeros[p]:
-          print("llega aqui",prim)
+          # print("llega aqui",prim)
           if(prim != 'ε'):
-            M[premisa][prim].add(str(premisa) + " -> " + str(regla))
+            M[premisa][prim].add(str(premisa) + " -> " + str(' '.join(regla)))
 
+  for nt in M:    
+    for t in M[nt]:
+      if (len(M[nt][t]) == 0):
+        M[nt][t].add("error")
 
   for nt in M:
     print(nt,M[nt])
-    # for t in M[nt]:
-    #   print (str(M[nt][t]) + "   ",end="")
-
-  # print(M)       
-
-
-
-
+  
+  return M   
 
 
 
