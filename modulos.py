@@ -360,24 +360,3 @@ def getTabla(dic):
 
 
 
-# def getSiguientes(e,dic,ans,primeros):
-#   for premisa in dic:
-#     print(ans)
-#     for regla in dic[premisa]:
-#       for x in range(len(regla)):
-#         if(e == regla[x]):
-#           if(x == len(regla) - 1):
-#             ans[e] = ans[e].union(getSiguientes(premisa,dic,ans,primeros))
-#           else:            
-#             # if('ε' in primeros[regla[x + 1]]):
-#             for k in primeros[regla[x + 1]]:
-#               if(k != 'ε'):
-#                 ans[e].add(k)
-#               else:
-#                 ans[e] = ans[e].union(getSiguientes(premisa,dic,ans,primeros))
-#               # ans[e] = ans[e].union(primeros[regla[x + 1]]).union(getSiguientes(premisa,dic,ans,primeros))
-          
-#   return ans[e]
-
-
-
