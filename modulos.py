@@ -253,7 +253,6 @@ def PrimerosTodos(dic):
   ans = {}
   ans = PrimerosNoTerminales(dic)
   ans.update(PrimerosTerminales(dic))
-  
   return ans
 
 def SplitForFollows(dic):
