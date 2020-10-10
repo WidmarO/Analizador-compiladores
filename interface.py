@@ -270,7 +270,7 @@ class Analizador():
     for fila in matriz:
       print(fila)
 
-
+    self.display6.delete('1.0',END)    
     for r in range(len(matriz) ):  
       for c in range(len(matriz[r])):
         if(r == 0 or c== 0):
