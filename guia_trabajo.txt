@@ -4,7 +4,7 @@ es traerte los cambios actuales, para ello entras en la
 carpeta del proyecto en tu pc con tu consola de git(git bash)
 y ejecutas el siguiente comando:
 - git pull origin master
-2. Una vez con actualizado tu proyecto local, haz tus cambios con normalidad,
+2. Una vez actualizado tu proyecto local, haz tus cambios con normalidad,
 cuando lo termines, primero guarda tu proyecto (ctrl + s) o file->guardar.
 3. Una vez guardado observa el estado del repositorio con el siguiente comando.
 - git status

@@ -189,12 +189,15 @@ class Analizador():
     dic1 = OrganizarToAnalisis(reglas)
     dic2 = SplitForFollows(dic1)
 
+    getTabla(dic1)
+
     chr = ""
     for i in dic2:
       chr += str(i) + " = " + str(dic2[i]) + "\n"
 
     self.display5.delete('1.0',END)
     self.display5.insert(tk.INSERT,chr)
+
 
 if __name__=="__main__":
   Analizador()

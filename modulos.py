@@ -192,7 +192,7 @@ def Terminales(dic):
           terminales.append(x)
   
   for e in terminales:
-    if(e[0] == '(' or e[0] == '['):
+    if(e[0] == '(' or e[0] == '[' or e[0] == '{'):
       terminales.remove(e)
       for i in e:
         terminales.append(i)
@@ -246,6 +246,9 @@ def PrimerosTerminales(dic):
   for x in aux:
     del primeros[x]
   
+  for e in primeros:
+    primeros[e] = set(primeros[e])
+
   return primeros
 
 def PrimerosNoTerminales(dic):
@@ -254,10 +257,13 @@ def PrimerosNoTerminales(dic):
   answer = {}
   for e in no_terminales:
     answer[e] = set()
-  for e in no_terminales:        
+  for e in no_terminales:
+    # if (len(answer[e]) > 0):
+      # continue
+    # else:        
     answer[e] = getPrimeros(e,answer,no_terminales,solo_primeros)
   return answer
-  
+
 def getPrimeros(e,ans,no_terminales,prims):  
   for i in prims[e]:
     if (i not in no_terminales):
@@ -266,40 +272,138 @@ def getPrimeros(e,ans,no_terminales,prims):
       ans[e] = ans[e].union(getPrimeros(i,ans,no_terminales,prims))
   return ans[e]
 
-
+def PrimerosTodos(dic):
+  ans = {}
+  ans = PrimerosNoTerminales(dic)
+  ans.update(PrimerosTerminales(dic))
+  
+  return ans
 
 def SplitForFollows(dic):
+  dic2 = dic
   for e in dic:
     aux = []
     for token in dic[e]:      
       x = []
       for tok in token:
         for st in tok.split(' '):
-          if(len(st) > 1 and (st[0] == "(" or st[0] == "[")):
+          if(len(st) > 1 and (st[0] == "(" or st[0] == "[" or st[0] == '{')):
             for i in st:
               x.append(i)
           else:
             x.append(st)
       aux.append(x)
-    dic[e] = aux
+    dic[e] = aux 
+  for _ in dic:
+    print(_,dic[_])
+  Siguientes(dic,dic2)
   return dic
 
-# def Siguientes(dic): # recibe el diccionario que devuelve SplitForFollows
-#   pila , ans = [] , {}
-#   for e in dic:
-#     ans[e] = []
+def Siguientes(dic,dic2): # recibe el diccionario que devuelve SplitForFollows
+  primeros = PrimerosTodos(dic2)
+  no_terminales = NoTerminales(dic2)
+  ans = {}
+  for e in dic:
+    ans[e] = set()
 
-#   for e in dic:
-#     siguientes(dic,pila,e,ans)
+  ans[no_terminales[0]].add('$')
+  # print("este en el ans de siguientes: \n",ans)
+  print("esto es primeros: ",primeros)
+  for e in dic:
+    pila = []
+    ans[e] = getSiguientes(e,dic,ans,primeros,pila)
+    # print(ans)
+  return ans
+              
+def getSiguientes(e,dic,ans,primeros,pila):
+  if(e in pila):
+    print(ans)
+    return ans[e]
+
+  pila.append(e)  
+  for premisa in dic:
+    for regla in dic[premisa]:
+      for ind in range(len(regla)):
+        if( e == regla[ind]):
+          if (ind != (len(regla) -1)):
+            for prim in primeros[regla[ind + 1]]:
+              if (prim == 'ε' or regla[ind + 1] == 'ε'):
+                ans[e] = ans[e].union(getSiguientes(premisa,dic,ans,primeros,pila))
+              else:
+                ans[e].add(prim)
+          else:
+            ans[e] = ans[e].union(getSiguientes(premisa,dic,ans,primeros,pila))
+  pila.pop()
+  print(ans)
+  return ans[e]
+
+def getTabla(dic):
+  primeros = PrimerosTodos(dic)
+  # primeros['ε'] = ['ε']
+  reglas_separadas = SplitForFollows(dic)
+  siguientes = Siguientes(reglas_separadas,dic)
+  terminales = sorted(Terminales(dic))
+  terminales.append('$')
+  no_terminales = NoTerminales(dic)
+  prim_simples = PrimerosSimples(dic)
+
+  print("primeros: ",primeros)
+  print("siguientes: ",siguientes)
+  print("terminales: ",terminales)
+  print("no_terminales: ",no_terminales)
+
+  M = {}
+  for nt in no_terminales:
+    M[nt] = {}
+    for t in terminales:
+      M[nt][t] = set()
+
+  for premisa in dic:
+    for regla in dic[premisa]:   
+      print("regla: ",regla)       
+      p = regla[0]
+      print("premisa: ",premisa)
+      if (p == 'ε'):
+        for sig in siguientes[premisa]:
+          M[premisa][sig].add(str(premisa) + " -> " + str(regla))
+      else:
+        for prim in primeros[p]:
+          print("llega aqui",prim)
+          if(prim != 'ε'):
+            M[premisa][prim].add(str(premisa) + " -> " + str(regla))
 
 
-# def siguientes(dic,pila,e,conj_sig):
-#   if(len(conj_sig) == 0):
-#     conj_sig[e].append('$')
-#   for p in dic:
-#     for rule in dic[p]:
-#       for tok in rule:
-#         if(tok == e):
+  for nt in M:
+    print(nt,M[nt])
+    # for t in M[nt]:
+    #   print (str(M[nt][t]) + "   ",end="")
+
+  # print(M)       
+
+
+
+
+
+
+
+# def getSiguientes(e,dic,ans,primeros):
+#   for premisa in dic:
+#     print(ans)
+#     for regla in dic[premisa]:
+#       for x in range(len(regla)):
+#         if(e == regla[x]):
+#           if(x == len(regla) - 1):
+#             ans[e] = ans[e].union(getSiguientes(premisa,dic,ans,primeros))
+#           else:            
+#             # if('ε' in primeros[regla[x + 1]]):
+#             for k in primeros[regla[x + 1]]:
+#               if(k != 'ε'):
+#                 ans[e].add(k)
+#               else:
+#                 ans[e] = ans[e].union(getSiguientes(premisa,dic,ans,primeros))
+#               # ans[e] = ans[e].union(primeros[regla[x + 1]]).union(getSiguientes(premisa,dic,ans,primeros))
+          
+#   return ans[e]
 
 
 
