@@ -274,10 +274,9 @@ class Analizador():
     for r in range(len(matriz) ):  
       for c in range(len(matriz[r])):
         if(r == 0 or c== 0):
-          Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="sunken", bd = 3,font=("Arial black bold",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)#.grid(padx = 10, ipadx = 9, pady = 1, row = r,column=c)
+          Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="ridge", bd = 1,font=("Open Sans",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)#.grid(padx = 10, ipadx = 9, pady = 1, row = r,column=c)
         else:
-          Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="sunken", bd = 3,font=("Open Sans",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)
-
+          Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="ridge", bd = 1,font=("Open Sans",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)
 
 if __name__=="__main__":
   Analizador()
