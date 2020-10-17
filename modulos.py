@@ -416,20 +416,22 @@ def cadenas(cadena,dic):
         tabla_pila.append(''.join(pila))
         tabla_cadena.append(''.join(cadena))
 
-  M = [[],[],[]]
-  for i in tabla_pila:
-    M[0].append(i)
-  for i in tabla_cadena:
-    M[1].append(i)
-  for i in tabla_accion:
-    M[2].append(i)
+  M = []
 
-  if(flag == -1):
-    for i in range(len(tabla_pila)):
-      print(tabla_pila[i][::-1],"\t",tabla_cadena[i][::-1],"\t",tabla_accion[i])  
+  for r in range(len(tabla_pila)):
+    M.append([])    
+    M[r].append(tabla_pila[r][::-1])
+    M[r].append(tabla_cadena[r][::-1])
+
+  for r in range(len(tabla_pila)-1):
+    M[r].append(tabla_accion[r+1])
+  if (flag == -1):
+    M[len(tabla_pila)-1].append("Incorrecto")  
   else:
-    for i in range(len(tabla_pila)):
-      print(tabla_pila[i][::-1],"\t",tabla_cadena[i][::-1],"\t",tabla_accion[i])  
+    M[len(tabla_pila)-1].append("Correcto")
+
+  for r in M:
+    print(r)
 
   return flag,M
 
