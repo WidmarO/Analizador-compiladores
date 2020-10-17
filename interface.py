@@ -101,7 +101,7 @@ class Analizador():
     #--
     self.Tablas=Button(self.ventana, text="Construir",font=("Cascadia Code",10), bg = 'khaki2',padx=7,pady=1.5,command=self.Tabla).place(x=22,y=510)
     self.Cadenas=Button(self.ventana, text="Verificar cadena",font=("Cascadia Code",10), bg = 'khaki2',padx=5,pady=1.5,command=self.VerificarCadena).place(x=900,y=40)
-
+    # self.limpiar1=Button(self.ventana, text="Limpiar",bg = 'khaki2', font=("Cascadia Code",10),padx=4,pady=1,command=self.limpiar1).place(x=850,y=600)
     self.ventana.mainloop()
 
     # Mensajes
@@ -281,14 +281,15 @@ class Analizador():
     for fila in matriz:
       print(fila)
 
-    self.display6.delete('1.0',END)    
+    self.display6.delete('1.0',END)
     for r in range(len(matriz) ):  
       for c in range(len(matriz[r])):
         if(r == 0 or c== 0):
-          Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="ridge", bd = 1,font=("Open Sans",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)#.grid(padx = 10, ipadx = 9, pady = 1, row = r,column=c)
+          Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="ridge", bd = 1,font=("Open Sans",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)
         else:
           Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="ridge", bd = 1,font=("Open Sans",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)
   
+
   def VerificarCadena(self):
     self.display8.delete('1.0',END) 
 
@@ -309,8 +310,10 @@ class Analizador():
     self.display8.delete("1.0", tk.END)
     for r in range(len(M)):
       for c in range(len(M[r])):
-        Label(self.display8, text = '%s'%(M[r][c]), bg="white", bd = 1,font=("Open Sans",9), borderwidth=1, width = 8, height = 1).grid(ipadx = 38, padx = 1, pady = 1, row = r,column=c)
-        
+        if(r == 0):
+          Label(self.display8, text = '%s'%(M[r][c]), bg="white", bd = 1,font=("Open Sans",9), borderwidth=1, width = 8, height = 1).grid(ipadx = 38, padx = 1, pady = 1, row = r,column=c)
+        else:
+          Label(self.display8, text = '%s'%(M[r][c]), bg="white", bd = 1,font=("Open Sans",9), borderwidth=1, width = 8, height = 1).grid(ipadx = 38, padx = 1, pady = 1, row = r,column=c)
 
 if __name__=="__main__":
   Analizador()

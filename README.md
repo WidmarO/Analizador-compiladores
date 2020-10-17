@@ -1,8 +1,36 @@
-# **<center>💻 ANALIZADOR 💻</center>**
+# **<center> 💻 ANALIZADOR GRAMATICO (COMPILADORES) 💻 </center>**
 
 ---
 
-El propósito de este trabajo es crear un programa que analice la ambigüedad y recursión de una gramática y solucionar dichos problemas si existieran.
+### Datos Academicos 📖
+
+- **Institucion:** Universidad Nacional de San Antonio Abad del Cusco
+- **Facultad:** Facultad de ingenieria electrica, electronica, informatica y mecanica
+- **Escuela Prof:** Ingenieria Informatica y de Sistemas
+
+#### Docente:
+
+- **Vanesa Lavilla Alvarez** - _Docente_ - [Concytec](http://directorio.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do;jsessionid=c5a14b2abf78a327623f1a7ccd0f?id_investigador=114602).
+
+#### Trabajo:
+
+- Realizar un analizador gramatico que dado un conjunto de reglas de entrada pueda analizar las reglas, en busca de problemas de recursion o ambiguedad, para luego poder corregirlas y mostrar el resultado.
+- Una vez corregidas las reglas obtenemos tambien el conjunto primeros para cada estado, y el conjunto no terminal para estado no terminal.
+- Obtenidos ya los conjuntos primeros y siguientes, proseguimos a realiza la tabla DLL.
+
+#### Autores:✒️
+
+- **Widmar Raul Quispe Leon** - _GitHub Account_ - [WidmarO](https://github.com/WidmarO)
+- **Melanie Indira Sullca Peralta** - _GitHub Account_ - [Melanie279](https://github.com/Melanie279)
+- **Nadiabeth Diana Mallqui Apaza** - _GitHub Account_ - [Nadiabeth15](https://github.com/Nadiabeth15)
+
+---
+
+NOTA: Diculpe las faltas ortograficas tales como tildes, dieresis y demas faltas encontradas a lo largo del cuaderno, esto se debe a que se uso unicamente una distribucion de teclado en ingles para escribir el presente el cual no tiene acceso a dichos caracteres.
+
+## Empezamos... 🚀
+
+Para un mayor entendimiento del programa realizamos un diagrama de flujo, el cual muestra una secuencia de pasos que componen el proceso del programa.
 
 ### Ejemplos...
 
@@ -32,13 +60,28 @@ E'' -> E E' | (E) E'
 Var -> a | b | c | d | e
 Num -> 0 | 1 | 2 | 3 | 9
 # Ahora nuestras reglas no tienen problemas de ambiguedad ni recursividad :)
+# Procedemos a encontrar los conjuntos primeros y siguientes
+First ( b ) = { 'b'}
+First ( 3 ) = { '3'}
+First ( 2 ) = { '2'}
+First ( T ) = { 'T'}
+First ( e ) = { 'e'}
+First ( 1 ) = { '1'}
+First ( + ) = { '+'}
+First ( c ) = { 'c'}
+First ( ) ) = { ')'}
+First ( S ) = { 'b', 'e', 'd', 'a', 'c'}
+First ( E ) = { 'b', '9', '1', '3', 'd', '0', '2', '(', 'c', 'e', 'a'}
+First ( E' ) = { '+', 'ε', '-'}
+First ( E'' ) = { 'b', '9', '1', '3', 'd', '0', '2', '(', 'c', 'e', 'a'}
+First ( Var ) = { 'b', 'd', 'c', 'e', 'a'}
+First ( Num ) = { '9', '1', '3', '0', '2'}
+# Obtenidos los conjuntos primeros y siguientes procedemos a construir nuestra tabla.
 ```
 
-### Empezamos... 🚀
+![tabla.png](https://raw.githubusercontent.com/WidmarO/Analizador-compiladores/master/img/tabla.png)
 
-_Para un mayor entendimiento del programa realizamos un diagrama de flujo, el cual muestra una secuencia de pasos que componen el proceso del programa que tienen una conexión entre sí._
-
-###### <center>DIAGRAMA DE FLUJO</center>
+## Diagrama de flujo
 
 ![diagrama.png](https://raw.githubusercontent.com/WidmarO/Analizador-compiladores/master/img/diagrama.png)
 
@@ -53,56 +96,15 @@ _Para un mayor entendimiento del programa realizamos un diagrama de flujo, el cu
 
 ## Codificacion del programa 📄
 
-La codificacion del programa fue dividido en lo siguiente:
+A continuacion mostramos los modulos mas importantes del programa...
+
+### Modulo que recibe los datos
+
+Ingresadas las reglas el modulo LeerDatos recibe como parametro las reglas en un string separadas las lineas por "\n" y devuelve un arreglo con las reglas separadas por lineas.
 
 #### Nota:
 
 Al ingresar las reglas, debe separar por espacio los estados y por " | " (una barra vertical) en caso de colocar mas reglas en una sola linea.
-
-### Codigo que resuelve la recursion ⌨️
-
-```py
-def CorregirRec(dic):
-
-  err = AnalizarForRec(dic)
-  corregido = {}
-  for e in dic:
-    if e in err:
-      corregido[e] = []
-      corregido[e + "'"] = []
-      for token in dic[e]:
-        if (len(token) == 1):
-          corregido[e].append([token[0] + " " + e + "'"])
-        else:
-          corregido[e + "'"].append([(token[1]) + " " + e + "'"])
-      corregido[e + "'"].append(["\u03B5"])
-    else:
-      corregido[e] = dic[e]
-  return corregido
-```
-
-### Codigo que resuelve la ambigüedad ⌨️
-
-```py
-def CorregirUnaAmb(dic):
-  err = AnalizarForAmb(dic)
-  corregido = {}
-  for e in dic:
-    # print("esete es el e: ",e)
-    if e in err:
-      # print("entro en e.values", e)
-      corregido[e] = []
-      corregido[e + "'"] = []
-      corregido[e].append([err[e] + " " + e + "'"])
-      for token in dic[e]:
-        if (token[0] != err[e]):
-          corregido[e].append(token)
-        else:
-          corregido[e + "'"].append([token[1]])
-    else:
-      corregido[e] = dic[e]
-  return corregido
-```
 
 ## Despliegue 📦
 

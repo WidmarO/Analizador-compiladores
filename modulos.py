@@ -359,7 +359,8 @@ def getTabla(dic):
 def cadenas(cadena,dic):
   non_terminal = NoTerminales(dic)
   tabla = getTabla(dic)
-  cadena = list(cadena)
+  # cadena = list(cadena)
+  cadena = cadena.split()
   cadena.reverse()
   pila = []
   pila.append('$')
