@@ -81,9 +81,6 @@ First ( Num ) = { '9', '1', '3', '0', '2'}
 
 ![tabla.png](https://raw.githubusercontent.com/WidmarO/Analizador-compiladores/master/img/tabla.png)
 
-## Diagrama de flujo
-
-![diagrama.png](https://raw.githubusercontent.com/WidmarO/Analizador-compiladores/master/img/diagrama.png)
 
 ### Construido con... 🛠️
 
