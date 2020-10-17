@@ -13,7 +13,7 @@ class Analizador():
     self.ventana.title("COMPILADORES")
     #self.label1 = Label(self.ventana,text="Entrada(reglas)",font=("Zeppelin 2",14),bg="light steel blue",width=64)
     self.ventana['bg'] = '#49A'
-    self.ventana.geometry('900x730')
+    self.ventana.geometry('1400x730')
     self.texto = ""
     self.traduc = ""
     self.finished = True
@@ -33,8 +33,10 @@ class Analizador():
     self.display6 = scrolledtext.ScrolledText(self.ventana,width=115,height=11,font=("Cascadia Code",10))
     self.display6.place(x=55,y=540)
     #----
-    #self.display7 = scrolledtext.ScrolledText(self.ventana,width=20,height=30,font=("Cascadia Code",10))
-    #self.display7.place(x=900,y=50)
+    self.display7 = Text(self.ventana,width=30,height=1,font=("Cascadia Code",10))
+    self.display7.place(x=1120,y=43)
+    self.display8 = scrolledtext.ScrolledText(self.ventana,width=62,height = 37.5,font=("Cascadia Code",10))
+    self.display8.place(x=900,y=110)
     #self.display8 = scrolledtext.ScrolledText(self.ventana,width=20,height=30,font=("Cascadia Code",10))
     #self.display8.place(x=1062,y=50)
     #self.display9 = scrolledtext.ScrolledText(self.ventana,width=20,height=30,font=("Cascadia Code",10))
@@ -59,10 +61,19 @@ class Analizador():
     #--
     self.label1 = Label(self.ventana,text="Tabla de Analisis Sintactico LL", relief="groove", bd = 3, bg="white", font=("Arial Black",11),width=80)
     self.label1.place(x=3,y=475)
+    self.label1 = Label(self.ventana,text="Verificación de Cadenas", relief="groove", bd = 3,bg="white",font=("Arial Black",11),width=41)
+    self.label1.place(x=900,y=0.5)
+    self.label1 = Label(self.ventana,text="Ingrese cadena: ", font=("Open Sans bold",8), height = 1)
+    self.label1.place(x=1019,y=44)
+    #--
+    self.label1 = Label(self.ventana,text="Pila",font=("Open Sans bold",11),width=15)
+    self.label1.place(x=900,y=80)
+    self.label1 = Label(self.ventana,text="Cadena",font=("Open Sans bold",11),width=15)
+    self.label1.place(x=1044,y=80)
+    self.label1 = Label(self.ventana,text="Acción",font=("Open Sans bold",11),width=15)
+    self.label1.place(x=1188,y=80)
 
-    #self.label1 = Label(self.ventana,text="Simbolos No Terminales (NT)", font=("Open Sans bold",8),width=91)
-    #self.label1.place(x=55,y=539)
-    #self.label1 = Label(self.ventana,text="Simbolos Terminales (T)", font=("Open Sans bold",10),width=101)
+    #self.label1 = Label(self.ventana,text"Simbolos Terminales (T)", font=("Open Sans bold",10),width=101)
     #self.label1.place(x=55,y=569)
 
     imagen1 = PhotoImage(file="./img/NoTerminales.png")
@@ -86,10 +97,10 @@ class Analizador():
     #--
     self.ConjPrimeros=Button(self.ventana, text="P\nR\nI\nM\nE\nR\nO\nS",bg = 'khaki2',font=("Cascadia Code",9),padx=4,pady=10,command=self.primeros).place(x=20,y=320)
     self.ConjSiguientes=Button(self.ventana, text="S\nI\nG\nU\nI\nE\nN\nT\nE\nS",bg = 'khaki2',font=("Cascadia Code",8),padx=7,pady=1,command=self.siguientes).place(x=545,y=318)
-    self.Recomendaciones=Button(self.ventana, text="( ! )",bg = 'tomato',font=("Arial Black",10),padx=3,pady=1,command=self.recomendaciones).place(x=852,y=3)
+    self.Recomendaciones=Button(self.ventana, text="( ! )",bg = 'tomato',font=("Arial Black",10),padx=3,pady=1,command=self.recomendaciones).place(x=3,y=3)
     #--
     self.Tablas=Button(self.ventana, text="Construir",font=("Cascadia Code",10), bg = 'khaki2',padx=7,pady=1.5,command=self.Tabla).place(x=22,y=510)
-
+    self.Cadenas=Button(self.ventana, text="Verificar cadena",font=("Cascadia Code",10), bg = 'khaki2',padx=5,pady=1.5,command=self.VerificarCadena).place(x=900,y=40)
 
     self.ventana.mainloop()
 
@@ -270,13 +281,20 @@ class Analizador():
     for fila in matriz:
       print(fila)
 
-
+    self.display6.delete('1.0',END)    
     for r in range(len(matriz) ):  
       for c in range(len(matriz[r])):
         if(r == 0 or c== 0):
           Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="ridge", bd = 1,font=("Open Sans",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)#.grid(padx = 10, ipadx = 9, pady = 1, row = r,column=c)
         else:
           Label(self.display6, text = '%s'%(matriz[r][c]), bg="white",relief="ridge", bd = 1,font=("Open Sans",10), borderwidth=2, width = 8, height = 1).grid(padx = 1, pady = 1, row = r,column=c)
+  
+  def VerificarCadena(self):
+    self.display8.delete('1.0',END)    
+    for r in range(26):  
+      for c in range(3):
+          Label(self.display8, text = '%s'%r, bg="white", bd = 1,font=("Open Sans",9), borderwidth=1, width = 8, height = 1).grid(ipadx = 38, padx = 1, pady = 1, row = r,column=c)
+        
 
 if __name__=="__main__":
   Analizador()
