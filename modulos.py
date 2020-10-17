@@ -315,7 +315,6 @@ def getSiguientes(e,dic,ans,primeros,pila):
 
 def getTabla(dic):
   primeros = PrimerosTodos(dic)
-  
   reglas_separadas = SplitForFollows(dic)
   siguientes = Siguientes(reglas_separadas,dic)
   terminales = sorted(Terminales(dic))
@@ -353,9 +352,149 @@ def getTabla(dic):
         M[nt][t].add("error")
 
   for nt in M:
-    print(nt,M[nt])
-  
+    print(nt,M[nt])  
+
   return M   
+    
+def cadenas(cadena,dic):
+  non_terminal = NoTerminales(dic)
+  tabla = getTabla(dic)
+  cadena = list(cadena)
+  cadena.reverse()
+  pila = []
+  pila.append('$')
+  pila.append(non_terminal[0])
+  accion = ""
+
+  tabla_pila = []
+  tabla_cadena = []
+  tabla_accion = []
+
+  str_pila = ""
+  for i in pila:
+    str_pila += i
+  tabla_pila.append(str_pila)
+
+  str_cadena = ""
+  for i in cadena:
+    str_cadena += i
+  tabla_cadena.append(str_cadena)
+  tabla_accion.append('')
+  print(tabla_pila[0],"\t",tabla_cadena[0],"\t",tabla_accion[0])  
+
+  flag = 0
+  while(len(pila) > 1 and len(cadena) > 1):
+    if(pila[-1] == cadena[-1]):
+      pila.pop()
+      tabla_pila.append(''.join(pila))
+      cadena.pop()
+      tabla_cadena.append(''.join(cadena))
+      tabla_accion.append('coincide')
+      # print('coincide')
+    else:
+      accion = tabla[pila[-1]][cadena[-1]]
+      accion = str(accion)
+      accion = accion[2:-2]
+      tabla_accion.append(str(accion))
+      print("accion",accion)
+      if(accion == "error"):
+        flag = -1
+        break
+      accion = accion.split(' -> ')[1]
+      accion = accion.split()
+      # print(accion)
+      accion.reverse()
+      # pila.pop()
+      if ('ε' in accion):
+        pila.pop()        
+        tabla_pila.append(''.join(pila))
+        tabla_cadena.append(''.join(cadena))
+      else:
+        pila.pop()                          
+        for i in accion:                
+          pila.append(i)
+        tabla_pila.append(''.join(pila))
+        tabla_cadena.append(''.join(cadena))
+
+  M = [[],[],[]]
+  for i in tabla_pila:
+    M[0].append(i)
+  for i in tabla_cadena:
+    M[1].append(i)
+  for i in tabla_accion:
+    M[2].append(i)
+
+  if(flag == -1):
+    for i in range(len(tabla_pila)):
+      print(tabla_pila[i][::-1],"\t",tabla_cadena[i][::-1],"\t",tabla_accion[i])  
+  else:
+    for i in range(len(tabla_pila)):
+      print(tabla_pila[i][::-1],"\t",tabla_cadena[i][::-1],"\t",tabla_accion[i])  
+
+  return flag,M
+
+
+# def cadenas(cadena,dic):
+#   non_terminal = NoTerminales(dic)
+#   tabla = getTabla(dic)
+#   cadena = list(cadena)
+#   cadena.reverse()
+#   pila = []
+#   pila.append('$')
+#   pila.append(non_terminal[0])
+#   accion = ""
+#   # dic = SplitForFollows(dic)
+#   # count = 0
+#   print(pila , "\t" ,cadena, "\t", accion)
+#   while(accion != 'error'):
+    
+#     if(pila[-1] == cadena[-1]):
+#       accion = "concide"       
+#       pila.pop()
+#       cadena.pop()
+#     else:
+#       nt = pila.pop()
+#       t = cadena[-1]      
+#       regla = tabla[nt][t]
+#       accion = str(regla)[1:-2]
+#       # print("accion: ",accion)
+#       accion = accion.split(' -> ')[1]
+#       accion = accion.split()
+#       for i in range(len(accion)):
+#         if(accion[i] == 'ε'):
+#           cadena.pop()
+#           pila.pop()
+#           print(pila , "\t" ,cadena, "\t", accion)
+#         else:
+#           pila.append(accion[len(accion)-i-1])  
+#       # print(pila , "\t" ,cadena, "\t", accion) 
+#     # count += 1    
+
+#     if(pila[-1] == '$' and cadena[-1] == '$'):
+#       accion = 'correcta'
+#       print(pila , "\t" ,cadena, "\t", accion)  
+#       break    
+
+#     print(pila , "\t" ,cadena, "\t", accion)
+
+    # obtenemos en una pila la cadena separada por estados
+    # en una pila apilar el $ y el primer no terminal 
+    # repetir hasta que accion == error o la pila y la cadena tengan solo $
+    #   comparamos los tops de las pilas
+    #   si son iguales:
+    #     desapilamos ambos valores de las pilas tanto de la pila
+    #     como de la cadena, y accion = coincide
+    #   si no lo son:
+    #     vamos a la tabla en la posicion del terminal y del no terminal
+    #     obtenemos la regla de la celda y la ponemos en accion
+    #     luego desapilamos en la pila y apilamos de derecha a
+    #     izquierda los estados de la regla en accion a la pila
+    
+     
+
+
+
+
 
 
 
