@@ -292,7 +292,9 @@ class Analizador():
 
   def VerificarCadena(self):
     self.display8.delete('1.0',END) 
-
+    for r in range(27):
+      for c in range(3):
+          Label(self.display8, text = '%s'%(''), bg="white", bd = 1,font=("Open Sans",9), borderwidth=1, width = 8, height = 1).grid(ipadx = 38, padx = 1, pady = 1, row = r,column=c)
     self.saveText = self.display1.get('1.0', tk.END)
     datos = str(self.saveText)
     reglas = LeerDatos(datos)
@@ -306,13 +308,9 @@ class Analizador():
       messagebox.showinfo(message="Cadena Incorrecta", title="Alerta")
     else:
       messagebox.showinfo(message="Cadena Correcta", title="Alerta")
-    
     self.display8.delete("1.0", tk.END)
     for r in range(len(M)):
       for c in range(len(M[r])):
-        if(r == 0):
-          Label(self.display8, text = '%s'%(M[r][c]), bg="white", bd = 1,font=("Open Sans",9), borderwidth=1, width = 8, height = 1).grid(ipadx = 38, padx = 1, pady = 1, row = r,column=c)
-        else:
           Label(self.display8, text = '%s'%(M[r][c]), bg="white", bd = 1,font=("Open Sans",9), borderwidth=1, width = 8, height = 1).grid(ipadx = 38, padx = 1, pady = 1, row = r,column=c)
 
 if __name__=="__main__":

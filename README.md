@@ -81,7 +81,6 @@ First ( Num ) = { '9', '1', '3', '0', '2'}
 
 ![tabla.png](https://raw.githubusercontent.com/WidmarO/Analizador-compiladores/master/img/tabla.png)
 
-
 ### Construido con... 🛠️
 
 - Lenguaje: [Python 3.6.9](https://www.python.org/)
